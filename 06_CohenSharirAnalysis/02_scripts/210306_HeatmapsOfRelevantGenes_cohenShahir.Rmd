@@ -1,0 +1,657 @@
+---
+title: "210306_HeatmapsOfRelevantGenes_CohenSharir"
+author: "Erin Osborne Nishimura"
+date: "3/06/2021"
+output: html_document
+---
+
+# Analysis: Heatmaps of key gene signature sets
+
+The purpose of this analysis is to assess how gene signature sets are changing in the Cohen-Sharir, 2021 datasets. Previous publications have reported the transcriptional profiles associated with different types of pathway activation.
+
+For this analysis, we used the following publications:
+
+  * Creighton CJ. [A gene transcription signature of the Akt/mTOR pathway in clinical breast tumors](https://doi.org/10.1038/sj.onc.1210245). _Oncogene_ **2007**;26:4648–55.
+
+  * Dry JR, Pavey S, Pratilas CA, Harbron C, Runswick S, Hodgson D, et al. [Transcriptional Pathway Signatures Predict MEK Addiction and Response to Selumetinib (AZD6244)](https://doi.org/10.1158/0008-5472.can-09-1577). _Cancer Res_ **2010**;70:2264–73.
+
+  * Loboda A, Nebozhyn M, Klinghoffer R, Frazier J, Chastain M, Arthur W, et al. [A gene expression signature of RAS pathway dependence predicts response to PI3K and RAS pathway inhibitors and expands the population of RAS pathway activated tumors.](https://doi.org/10.1186/1755-8794-3-26) _Bmc Med Genomics_ **2010**;3:26.
+
+  * Pratilas CA, Taylor BS, Ye Q, Viale A, Sander C, Solit DB, et al. [V600EBRAF is associated with disabled feedback inhibition of RAF–MEK signaling and elevated transcriptional output of the pathway.](https://doi.org/10.1073/pnas.0900780106) _Proc National Acad Sci_ **2009**;106:4519–24. 
+
+  * Wagle M-C, Kirouac D, Klijn C, Liu B, Mahajan S, Junttila M, et al. [A transcriptional MAPK Pathway Activity Score (MPAS) is a clinically relevant biomarker in multiple cancer types](https://doi.org/10.1038/s41698-018-0051-4). _Npj Precis Oncol_ **2018**;2:7.
+
+```{r, echo = FALSE}
+
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install(version = "3.12")
+# 
+# library(BiocManager)
+# BiocManager::install("ComplexHeatmap")
+# I need to download X11 - XQuartz on Mac to use ComplexHeatmap
+
+
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#BiocManager::install(version = "3.12")
+
+#BiocManager::install("clusterProfiler")
+
+
+```
+
+
+
+## Step 1: Load packages
+
+```{r load packges, warning = FALSE, message = FALSE}
+
+library(RColorBrewer)
+library(ggplot2)
+library(dplyr)
+library(pheatmap)
+library(reshape2)
+library(pryr)
+```
+
+## Step 2: Set Today's date:
+
+```{r set today, echo = FALSE}
+today <- format(Sys.Date(), "%y%m%d")
+today
+```
+
+## Step 3: Import the data from CohenSharir - 
+
+
+```{r Importing}
+# This was an output from: 210128_DESeq_analyze_EONversion
+cohen_sharir <- read.table(file = "../01_input/41586_2020_3114_MOESM6_ESM.txt", header = TRUE) 
+
+UpInCohenSharir <- rownames(cohen_sharir %>%
+    filter(q_value < 0.05) %>%
+      filter(Effect_size > 0 ))
+length(UpInCohenSharir)
+
+DownInCohenSharir <- rownames(cohen_sharir %>%
+    filter(q_value < 0.05) %>%
+      filter(Effect_size < 0 ))
+length(DownInCohenSharir)
+
+
+```
+
+
+## Step 4: Import the datasets from other published papers - 
+
+```{r}
+
+# Import Mek dataset
+Mek18 <- read.table(file = "../01_input/MekEtAl18.txt", header = FALSE)
+colnames(Mek18)[1] <- "genenames"
+
+# Import Pratilas dataset
+Pratilas_table <- read.table(file = "../01_input/Pratilis_genenames.txt", header = FALSE)
+colnames(Pratilas_table)[1] <- "genenames"
+
+# Wagle et al -> 10 genes
+vector_of_genes_wagle <- c("SPRY2", "SPRY4", "ETV4", "ETV5", "DUSP4", "DUSP6", "CCND1", "EPHA2", "EPHA4", "PHLDA1")
+
+# Import Creighton dataset
+creighton_table <- read.table(file = "../01_input/Creighton_list.txt", header = FALSE)
+colnames(creighton_table)[1] <- "genenames"
+
+# Import Loboda dataset
+lobodaUp_table <- read.table(file = "../01_input/Loboda_RASUp.txt", header = FALSE)
+colnames(lobodaUp_table)[1] <- "genenames"
+
+```
+
+## Step 4: Write some functions:
+
+Write a function called *make_contingency_table* that creates contingency tables for statistical analyses:
+
+Write a function called *vector_of_p_values* that creates a vector of p-values generated from comparisons with the DESeq2 differentially expressed genes expressing the likeliness that a given gene signature set of genes are **enriched** amongst the list of genes.
+
+Write a function called *vector_of_depletion_p_values* that creates a vector of p=values generated from comparisons with the DESeq2 differentially expressed genes expressing the likeliness that a given gene signature set of genes are **depleted** amongst the list of genes.
+
+```{r, echo = FALSE}
+make_contingency_table <- function(Published_list, RNAseqList, totalList) {
+  Missing_genes <- setdiff(Published_list, totalList)
+  message <- paste("There are ", Missing_genes, " missing genes.")
+  #print(message)
+  intersectA <- length(intersect(Published_list, RNAseqList))
+  NotFoundB <- length(Published_list) - intersectA
+  MissedC <- length(RNAseqList) - intersectA
+  NeitherD <- length(totalList) - sum(intersectA, NotFoundB, MissedC)
+  table1 <- rbind(RNAseqChanging = c(intersectA, MissedC), RNAseqUnchanged = c(NotFoundB, NeitherD))
+  colnames(table1) <- c("published", "Notpublished")
+  return(as.table(table1))
+}
+
+# return a vector of P values assoicated with enrichment in each RNA-seq geneset
+vector_of_p_values <- function(Published_list){
+  p_value_vector <- c()
+  
+  table <- make_contingency_table(Published_list, UpInCohenSharir, rownames(cohen_sharir))
+  p_value_vector[1] <- fisher.test(table, alternative = "greater")$p.value
+
+  table <- make_contingency_table(Published_list, DownInCohenSharir, rownames(cohen_sharir))
+  p_value_vector[2] <- fisher.test(table, alternative = "greater")$p.value  
+  
+  return(p_value_vector)
+}
+
+# return a vector of P values associated with depletion in each RNA-seq geneset
+vector_of_depletion_p_values <- function(Published_list){
+  p_value_vector <- c()
+  
+  table <- make_contingency_table(Published_list, UpInCohenSharir, rownames(cohen_sharir))
+  p_value_vector[1] <- fisher.test(table, alternative = "less")$p.value
+
+  table <- make_contingency_table(Published_list, DownInCohenSharir, rownames(cohen_sharir))
+  p_value_vector[2] <- fisher.test(table, alternative = "less")$p.value  
+
+  return(p_value_vector)
+}
+
+
+```
+
+Write a function called *calculate_percent_enrichment* that calculates the over-representation between a published gene signature and the gene sets from our RNA-seq analysis. Our gene sets are lists of genes that are Up compared to ARPE-19 or down compared to ARPE-19 at a 0.1 adjusted p-value threshold and a 0.25 minimum log fold change.
+
+
+Write a function called *calculate_fold_enrichment* that calcualets the fold enrichment between a published genes signature set and the genesets from our RNA-seq analysis.
+
+```{r, echo = FALSE}
+
+
+calculate_percent_of_published <- function(vector_of_published_genes){
+  percent <- c()
+  
+  # Calculate % Published genes in UpInCohen Set
+  table1 <- make_contingency_table(vector_of_published_genes, UpInCohenSharir, rownames(cohen_sharir))
+  percent[1] <- sum(table1[1,1])/sum(table1[,1])*100
+  
+  # Calculate % Published genes in DownInCohen Set
+  table2 <- make_contingency_table(vector_of_published_genes, DownInCohenSharir, rownames(cohen_sharir))
+  percent[2] <- sum(table2[1,1])/sum(table2[,1])*100
+
+  # Calculate % Published genes in All genes
+  percent[3] <- sum(table2[,1])/sum(table2)*100 
+
+  names(percent) <- c("PercentUpInCohenSharir", "PercentDownInCohenSharir", "PercentInAll")
+
+  return(percent)
+}
+
+calculate_percent_of_UpOrDown <- function(vector_of_published_genes){
+  percent <- c()
+
+  # Calculate % of the UpInCohen Set that are in the published gene list
+  table1 <- make_contingency_table(vector_of_published_genes, UpInCohenSharir, rownames(cohen_sharir))
+  percent[1] <- sum(table1[1,1])/sum(table1[,1])*100
+  
+  # Calculate % of the DownInCohen Set that are in the published gene list
+  table2 <- make_contingency_table(vector_of_published_genes, DownInCohenSharir, rownames(cohen_sharir))
+  percent[2] <- sum(table2[1,1])/sum(table2[,1])*100
+
+  # Calculate the % that the UpInCohen set is of the total geneset:
+  percent[3] <- sum(table1[1,])/sum(table1)*100  
+  
+  # Calculate % that the DownInCohen is of the total geneset:
+  percent[4] <- sum(table2[1,])/sum(table2)*100 
+
+  names(percent) <- c("UpInCohenSharir_In_List", "DownInCohenSharir_In_List", "UpInCohenSharir_In_Total" , "DownInCohenSharir_In_Total")
+
+  return(percent)
+}
+
+
+
+calculate_fold_enrichment <- function(vector_of_published_genes){
+    # Calculate fold enrichment
+    table <- make_contingency_table(vector_of_published_genes, UpInCohenSharir, rownames(cohen_sharir))
+    percent_all <- sum(table[,1])/sum(table)*100
+    percent_up <- sum(table[1,1])/sum(table[1,])*100
+    foldEnrichment <- percent_up / percent_all
+    
+    # Label it
+    names(foldEnrichment) <- c("UpInCS")
+    
+    # Return it
+    return(foldEnrichment)
+}
+
+calculate_fold_depletion <- function(vector_of_published_genes){
+    # Calculate fold depletion    
+    table <- make_contingency_table(vector_of_published_genes, DownInCohenSharir, rownames(cohen_sharir))
+    percent_all <- sum(table[,1])/sum(table)*100
+    percent_down <- sum(table[1,1])/sum(table[1,])*100
+    foldDepletion <- percent_down / percent_all
+    
+    # Label it
+    names(foldDepletion) <- c("DownInCS")
+    
+    # Return it
+    return(foldDepletion)
+}
+
+```
+
+
+
+```{r, echo = FALSE}
+
+# Gather statistics: Percent representation
+# What percent of the Up in CS or Down in CS lists are represented by the published lists?
+percent_mek <- calculate_percent_of_published(Mek18$genenames)
+percent_pratilas <- calculate_percent_of_published(Pratilas_table$genenames)
+percent_wagle <- calculate_percent_of_published(vector_of_genes_wagle)
+percent_creighton <- calculate_percent_of_published(creighton_table$genenames)
+percent_loboda <- calculate_percent_of_published(lobodaUp_table$genenames)
+
+percent_mek
+percent_pratilas
+percent_wagle
+percent_creighton
+percent_loboda
+
+
+# Gather statistics: Percent of Up and Down Cohen Sharir lists
+# What Percentage of the published lists can be found in the CohenSharir sets?
+UD_percent_mek <- calculate_percent_of_UpOrDown(Mek18$genenames)
+UD_percent_pratilas <- calculate_percent_of_UpOrDown(Pratilas_table$genenames)
+UD_percent_wagle <- calculate_percent_of_UpOrDown(vector_of_genes_wagle)
+UD_percent_creighton <- calculate_percent_of_UpOrDown(creighton_table$genenames)
+UD_percent_loboda <- calculate_percent_of_UpOrDown(lobodaUp_table$genenames)
+
+UD_percent_mek
+UD_percent_pratilas
+UD_percent_wagle
+UD_percent_creighton
+UD_percent_loboda
+
+# Gather statistics: Fold enrichment
+fold_enrich_mek <- calculate_fold_enrichment(Mek18$genenames)
+fold_enrich_pratilas <- calculate_fold_enrichment(Pratilas_table$genenames)
+fold_enrich_wagle <- calculate_fold_enrichment(vector_of_genes_wagle)
+fold_enrich_creighton <- calculate_fold_enrichment(creighton_table$genenames)
+fold_enrich_loboda <- calculate_fold_enrichment(lobodaUp_table$genenames)
+
+fold_enrich_mek
+fold_enrich_pratilas
+fold_enrich_wagle
+fold_enrich_creighton
+fold_enrich_loboda
+
+# Gather statistics: Fold depletion
+fold_deplete_mek <- calculate_fold_depletion(Mek18$genenames)
+fold_deplete_pratilas <- calculate_fold_depletion(Pratilas_table$genenames)
+fold_deplete_wagle <- calculate_fold_depletion(vector_of_genes_wagle)
+fold_deplete_creighton <- calculate_fold_depletion(creighton_table$genenames)
+fold_deplete_loboda <- calculate_fold_depletion(lobodaUp_table$genenames)
+
+fold_deplete_mek
+fold_deplete_pratilas
+fold_deplete_wagle
+fold_deplete_creighton
+fold_deplete_loboda
+
+```
+
+## Step 10: Gather up the P-values for enrichment and depletion rates
+
+```{r, echo = FALSE}
+# Generate an empty dataframe for the enrichment p-values:
+Pvalue_df <- data.frame(UpInCS = numeric(),
+                        DowninCS = numeric())
+
+# Save Dry et al., Mek18 data to the dataframe:
+Pvalue_df[1,] <- vector_of_p_values(Mek18$genenames)
+rownames(Pvalue_df)[1] <- "Dry_et_al_mek_18"
+Pvalue_df
+# Generate an empty dataframe for the depletion p-values:
+Pvalue_df_deplete <- data.frame(UpInCS = numeric(),
+                        DowninCS = numeric())
+
+Pvalue_df_deplete[1,] <- vector_of_depletion_p_values(Mek18$genenames)
+rownames(Pvalue_df_deplete)[1] <- "Dry_et_al_mek_18"
+
+#Gather statistics
+
+Pvalue_df[2,] <- vector_of_p_values(Pratilas_table$genenames)
+rownames(Pvalue_df)[2] <- "Pratilas_et_al_mek_50"
+Pvalue_df_deplete[2,] <- vector_of_depletion_p_values(Pratilas_table$genenames)
+rownames(Pvalue_df_deplete)[2] <- "Pratilas_et_al_mek_50"
+
+#Gather statistics
+Pvalue_df[3,] <- vector_of_p_values(vector_of_genes_wagle)
+rownames(Pvalue_df)[3] <- "Wagle_et_al_mek_10"
+Pvalue_df_deplete[3,] <- vector_of_depletion_p_values(vector_of_genes_wagle)
+rownames(Pvalue_df_deplete)[3] <- "Wagle_et_al_mek_10"
+
+#Gather statistics
+Pvalue_df[4,] <- vector_of_p_values(creighton_table$genenames)
+rownames(Pvalue_df)[4] <- "Creighton_et_al_akt_57"
+Pvalue_df_deplete[4,] <- vector_of_depletion_p_values(creighton_table$genenames)
+rownames(Pvalue_df_deplete)[4] <- "Creighton_et_al_akt_57"
+
+#Gather statistics
+Pvalue_df[5,] <- vector_of_p_values(lobodaUp_table$genenames)
+rownames(Pvalue_df)[5] <- "Loboda_ras_101"
+Pvalue_df_deplete[5,] <- vector_of_depletion_p_values(lobodaUp_table$genenames)
+rownames(Pvalue_df_deplete)[5] <- "Loboda_ras_101"
+
+Pvalue_df
+
+Pvalue_df_deplete
+```
+
+
+## Step 11: Create dotplots for enrichment - fold change and p-values and create dotplots for depletion - fold chang and p-values
+
+
+```{r, echo = FALSE}
+
+# Subset the enrichment p-values to those I will use in a figure:
+matrix_of_Pvalues <- -log(Pvalue_df)[c(4,2,1,3,5),1]
+matrix_of_Pvalues
+
+
+# Subset the depletion p-values to those I will use in a figure:
+matrix_of_depletion_Pvalues <- -log(Pvalue_df_deplete)[c(4,2,1,3,5),2]
+matrix_of_depletion_Pvalues
+
+# Gather the fold change data 
+allFoldChange <- c(
+  fold_enrich_creighton[1],
+  fold_enrich_pratilas[1],
+  fold_enrich_mek[1],
+  fold_enrich_wagle[1],
+  fold_enrich_loboda[1])
+
+# Gather the depletion data
+allFoldDepletion <- c(
+  fold_deplete_creighton[1],
+  fold_deplete_pratilas[1],
+  fold_deplete_mek[1],
+  fold_deplete_wagle[1],
+  fold_deplete_loboda[1])
+
+# Reshape the enrichment p-values into a long format dataset:
+long_Pvalues <- as.matrix(matrix_of_Pvalues) %>% 
+  melt() %>%
+  mutate(RNAseq_num = c(rep(1,5))) %>%
+  mutate(PubList = c(1:5)) %>%
+  mutate(foldenrich = allFoldChange)
+
+long_Pvalues
+as.matrix(matrix_of_Pvalues) %>% 
+  melt() %>%
+  mutate(RNAseq_num = c(1:5))
+
+# Reshape the depletion p-values into a long format dataset:
+depletion_matrix <- as.matrix(matrix_of_depletion_Pvalues) %>%
+  melt() %>%
+  mutate(RNAseq_num = c(rep(1, 5))) %>%
+  mutate(PubList = c(rep(c(1,2,3,4,5), 3))) %>%
+  mutate(folddeplete = allFoldDepletion)
+
+# The 0 values in the depletion matrix cause some problems numerically. Change these to a very low number.
+depletion_matrix
+depletion_matrix[which(depletion_matrix$folddeplete == 0),6] <- 0.00000000000000000001
+        
+# Plot the data - enrichment
+plot1 <- ggplot(long_Pvalues, aes(x=RNAseq_num, y=PubList, color=(foldenrich))) + 
+  geom_point(aes(size=value)) +
+  scale_colour_gradient2(midpoint = 1, low = "navy", mid = "magenta4", high = "pink") +
+  ylim(5.5, 0.5) +
+  scale_size(range = c(1, 15)) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), panel.grid.major = )
+
+pdf(file = "tester_1.pdf", width = 5, height = 5)
+plot1
+dev.off()
+
+# Plot the data - depletion
+plot2 <- ggplot(depletion_matrix, aes(x=RNAseq_num, y=PubList, color=log(folddeplete))) + 
+  geom_point(aes(size=value)) +
+  scale_colour_gradient2(midpoint = 1, low = "cyan", mid = "blue", high = "navy") +
+  xlim(0.5,3.5) +
+  ylim(5.5, 0.5) +
+  scale_size(range = c(1, 3)) +
+  theme_bw() +
+  theme(panel.grid.minor = element_blank(), panel.grid.major = )
+
+plot2
+
+filename = paste("../03_output/", today, "_pvalue_enrich_dotplot.pdf", sep = "")
+pdf(file = filename, width = 6, height = 4.5)
+plot1
+dev.off()
+
+
+filename = paste("../03_output/", today, "_pvalue_deplete_dotplot.pdf", sep = "")
+pdf(file = filename, width = 6, height = 4.5)
+plot2
+dev.off()
+
+```
+
+
+
+
+################################################################################
+################################################################################
+
+## Step 5: Select genes in different branches of the RAS/AKT/MEK pathways:
+
+These are the genes that were altered as part of the transformation process.
+
+```{r, echo = FALSE}
+top_genes <- c("CCND1", "CDK4", "TERT", "TP53", "AKT1", "MAP2K1", "HRAS") 
+
+
+
+```
+
+
+## Step 5: Compare to Dry et al., 2010 - Mek-18 gene signature (18 genes)
+
+This a gene signature set of genes that are predicted to be up-regulated with Mek-pathway activation. 
+
+```{r, echo = FALSE}
+Mek18 <- read.table(file = "../01_input/MekEtAl18.txt", header = FALSE)
+colnames(Mek18)[1] <- "genenames"
+
+# Calculate enrichment
+percent_enrich_Mek18 <- calculate_percent_enrichment(Mek18$genenames)
+
+
+fold_enrich_Mek18 <- calculate_fold_enrichment(Mek_18_df$EnsembleGeneName)
+fold_enrich_Mek18
+
+fold_deplete_Mek18 <- calculate_fold_depletion(Mek_18_df$EnsembleGeneName)
+fold_deplete_Mek18
+
+# Generate a barplot 
+p_mek18 %<a-% {
+  barplot(rev(percent_enrich_Mek18), horiz = TRUE, las = 2,
+          xlim = c(0,4),
+          main = "Dry et al., 2010; 18 MEK genes",
+          xlab = "percentage") 
+  abline(v=as.numeric(percent_enrich_Mek18[7]), col="red",lty=2)
+}
+
+p_mek18
+
+filename = paste("../03_output/", today, "_Dry18_barplot.pdf", sep = "")
+pdf(file = filename, width = 5, height = 4)
+  p_mek18
+  dev.off()
+```
+
+
+
+## Step 6: Pratilas et al. 2009, Mek-52 gene signature (52 genes)
+
+Plot the heatmap from Pratilas et al., 52 genes
+
+These are predicted to be up-regulated with Mek-pathway activation. 
+
+```{r heatmap, echo = FALSE}
+
+# Import Pratilas dataset
+Pratilas_table <- read.table(file = "../01_input/Pratilis_genenames.txt", header = FALSE)
+colnames(Pratilas_table)[1] <- "genenames"
+
+#Gather enrichments & depletions
+percent_enrich_pratilas <- calculate_percent_enrichment(Pratilas_table$genenames)
+percent_enrich_pratilas
+fold_enrich_pratilas <- calculate_fold_enrichment(Pratilas_table$genenames)
+
+fold_enrich_pratilas
+fold_deplete_pratilas <- calculate_fold_depletion(Pratilas_table$genenames)
+fold_deplete_pratilas
+
+# Print pratilas plot in output file
+barplot(rev(percent_enrich_pratilas), horiz = TRUE, las = 2, xlim = c(0,4), main = "Pratilas - 50 - genes")
+abline(v=as.numeric(percent_enrich_pratilas[7]), col="red",lty=2)
+
+# print Pratilas plot as .pdf
+filename = paste("../03_output/", today, "_Pratilas_barplot.pdf", sep = "")
+pdf(file = filename, width = 5, height = 4)
+barplot(rev(percent_enrich_pratilas), horiz = TRUE, las = 2, xlim = c(0,4), main = "Pratilas - 50 - genes")
+abline(v=as.numeric(percent_enrich_pratilas[7]), col="red",lty=2)
+dev.off()
+
+```
+
+
+
+
+## Step 7: Wagle et al., 2018. MEK pathway (10 genes)
+
+These are predicted to be up-regulated with Mek-pathway activation. 
+
+```{r, echo = FALSE}
+
+# Wagle et al -> 10 genes
+vector_of_genes_wagle <- c("SPRY2", "SPRY4", "ETV4", "ETV5", "DUSP4", "DUSP6", "CCND1", "EPHA2", "EPHA4", "PHLDA1")
+
+# Gather enrichment & depletion rates
+percent_enrich_wagle <- calculate_percent_enrichment(vector_of_genes_wagle)
+percent_enrich_wagle
+fold_enrich_wagle <- calculate_fold_enrichment(vector_of_genes_wagle)
+fold_enrich_wagle
+fold_deplete_wagle <- calculate_fold_depletion(vector_of_genes_wagle)
+fold_deplete_wagle
+
+# plot 
+barplot(rev(percent_enrich_wagle), horiz = TRUE, las = 2, xlim = c(0,4), main = "Wagle et al., - 10 Mek genes")
+abline(v=as.numeric(percent_enrich_wagle[7]), col="red",lty=2)
+
+# Save the plot
+filename = paste("../03_output/", today, "_Wagle_barplot.pdf", sep = "")
+pdf(file = filename, width = 5, height = 4)
+barplot(rev(percent_enrich_wagle), horiz = TRUE, las = 2, xlim = c(0,4), main = "Wagle et al., - 10 Mek genes")
+abline(v=as.numeric(percent_enrich_wagle[7]), col="red",lty=2)
+dev.off()
+
+```
+
+
+
+## Step 8: Creighton et al, 2007. AKT/mTOR pathway (57)
+
+These are predicted to be up-regulated with AKT activation specifically in breast tumors 
+
+```{r, echo = FALSE}
+creighton_table <- read.table(file = "../01_input/Creighton_list.txt", header = FALSE)
+creighton_table$V1
+
+
+# Gather enrichment & depletion:
+percent_enrich_creighton <- calculate_percent_enrichment(creighton_table$V1)
+percent_enrich_creighton
+fold_enrich_creighton <- calculate_fold_enrichment(creighton_table$V1)
+fold_enrich_creighton
+fold_deplete_creighton <- calculate_fold_depletion(creighton_table$V1)
+fold_deplete_creighton
+
+# barplot
+barplot(rev(percent_enrich_creighton), horiz = TRUE, las = 2, xlim = c(0,4), main = "Creighton - 57 - Akt")
+abline(v=as.numeric(percent_enrich_creighton[7]), col="red",lty=2)
+
+# save barplot
+filename = paste("../03_output/", today, "_Creighton_barplot.pdf", sep = "")
+pdf(file = filename, width = 5, height = 4)
+barplot(rev(percent_enrich_creighton), horiz = TRUE, las = 2, xlim = c(0,4), main = "Creighton - 57 - Akt")
+abline(v=as.numeric(percent_enrich_creighton[7]), col="red",lty=2)
+dev.off()
+
+```
+
+
+
+## Step 9: Loboda et al., 2010. RAS pathway - activated
+
+These are predicted to be up-regulated with RAS activation. 105 genes.
+
+```{r, echo = FALSE}
+lobodaUp_table <- read.table(file = "../01_input/Loboda_RASUp.txt", header = FALSE)
+
+# Gather statistics: fold enrichment and depletion
+percent_enrich_loboda <- calculate_percent_enrichment(lobodaUp_table$V1)
+percent_enrich_loboda
+fold_enrich_loboda <- calculate_fold_enrichment(lobodaUp_table$V1)
+fold_enrich_loboda
+fold_deplete_loboda <- calculate_fold_depletion(lobodaUp_table$V1)
+fold_deplete_loboda
+
+# Plot
+barplot(rev(percent_enrich_loboda), horiz = TRUE, las = 2, main = "Loboda - 101 - Ras")
+abline(v=as.numeric(percent_enrich_loboda[7]), col="red",lty=2)
+
+# save barplot
+filename = paste("../03_output/", today, "_Loboda_barplot.pdf", sep = "")
+pdf(file = filename, width = 5, height = 4)
+barplot(rev(percent_enrich_loboda), horiz = TRUE, las = 2, main = "Loboda - 101 - Ras")
+abline(v=as.numeric(percent_enrich_loboda[7]), col="red",lty=2)
+dev.off()
+
+```
+
+
+
+
+
+Here are the p-values reflecting the chance that there is enrichment in a gene signature within our geneset lits:
+
+```{r, echo = FALSE}
+Pvalue_df
+
+```
+
+Here are the p-values reflecting the chance that there is depletion in a gene signature within our geneset lits:
+
+```{r, echo = FALSE}
+Pvalue_df_deplete
+
+```
+
+
+
+
+
+
+Session info:
+
+```{r, echo = TRUE}
+sessionInfo()
+citation()
+```
+

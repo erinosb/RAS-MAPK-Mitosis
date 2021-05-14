@@ -1,0 +1,2877 @@
+>>> INITIATING analyzer with command:
+ 	 summitRNAseq_PE_analyzer.sh /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR_ARPE_Deluca_Collab_manifest.txt 16
+>>> MAKING output directory
+	 mkdir ../03_output/2020-01-16_RRoutput_robs/
+RR001_S1_L002_R1_001
+RR001_S1_L002_R2_001
+MekDD_1_1
+>>> INPUT: This script will process files from the metafile:
+	/pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR_ARPE_Deluca_Collab_manifest.txt
+>>> PLAN: This script will process the sample files into the following names: 
+	 SAMPLE_READ_1 	 SAMPLE_READ_2 	 NAMES
+	 RR001_S1_L002_R1_001	 RR001_S1_L002_R2_001	 MekDD_1_1
+	 RR002_S2_L002_R1_001	 RR002_S2_L002_R2_001	 Aktmyr_1_2
+	 RR003_S3_L002_R1_001	 RR003_S3_L002_R2_001	 ARPE19_1_3
+	 RR004_S4_L002_R1_001	 RR004_S4_L002_R2_001	 RasV12_1_4
+	 RR005_S5_L002_R1_001	 RR005_S5_L002_R2_001	 T53D4_1_5
+	 RR012_S49_L002_R1_001	 RR012_S49_L002_R2_001	 negclt_3_0
+	 RR013_S50_L002_R1_001	 RR013_S50_L002_R2_001	 MekDD_3_1
+	 RR014_S51_L002_R1_001	 RR014_S51_L002_R2_001	 Akymyr_3_2
+	 RR015_S52_L002_R1_001	 RR015_S52_L002_R2_001	 ARPE19_3_3
+	 RR016_S53_L002_R1_001	 RR016_S53_L002_R2_001	 RasV12_3_4
+	 RR017_S54_L002_R1_001	 RR017_S54_L002_R2_001	 T53D4_3_5
+	 RROOO10_S10_L002_R1_001	 RROOO10_S10_L002_R2_001	 RasV12_2_4
+	 RROOO11_S11_L002_R1_001	 RROOO11_S11_L002_R2_001	 T53D4_2_5
+	 RROOO6_S6_L002_R1_001	 RROOO6_S6_L002_R2_001	 negclt_2_0
+	 RROOO7_S7_L002_R1_001	 RROOO7_S7_L002_R2_001	 MekDD_2_1
+	 RROOO8_S8_L002_R1_001	 RROOO8_S8_L002_R2_001	 Aktmyr_2_2
+	 RROOO9_S9_L002_R1_001	 RROOO9_S9_L002_R2_001	 ARPE19_2_3
+
+ >>> FASTP: analyzing quality of each .fastq file
+
+ Sample Name: MekDD_1_1
+
+ Read 1: RR001_S1_L002_R1_001
+
+ Read 2: RR001_S1_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_1_1/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR001_S1_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR001_S1_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_1_1/RR001_S1_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_1_1/RR001_S1_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR001_S1_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR001_S1_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 39140263
+total bases: 5910179713
+Q20 bases: 5684507400(96.1816%)
+Q30 bases: 5341032585(90.3701%)
+
+Read2 before filtering:
+total reads: 39140263
+total bases: 5910179713
+Q20 bases: 5625664367(95.186%)
+Q30 bases: 5240109842(88.6624%)
+
+Read1 after filtering:
+total reads: 38636780
+total bases: 5489770054
+Q20 bases: 5301017186(96.5617%)
+Q30 bases: 4990693120(90.909%)
+
+Read2 aftering filtering:
+total reads: 38636780
+total bases: 5488567993
+Q20 bases: 5272944376(96.0714%)
+Q30 bases: 4932635009(89.8711%)
+
+Filtering result:
+reads passed filter: 77273560
+reads failed due to low quality: 888740
+reads failed due to too many N: 13264
+reads failed due to too short: 104962
+reads with adapter trimmed: 25533488
+bases trimmed due to adapters: 674016238
+reads with polyX in 3' end: 418127
+bases trimmed in polyX tail: 9020469
+
+Duplication rate: 3.0068%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR001_S1_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR001_S1_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR001_S1_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR001_S1_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_1_1/RR001_S1_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_1_1/RR001_S1_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR001_S1_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR001_S1_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 342 seconds
+
+real	5m42.638s
+user	41m32.304s
+sys	4m7.661s
+
+ Sample Name: Aktmyr_1_2
+
+ Read 1: RR002_S2_L002_R1_001
+
+ Read 2: RR002_S2_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_1_2/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR002_S2_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR002_S2_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_1_2/RR002_S2_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_1_2/RR002_S2_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR002_S2_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR002_S2_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 45154231
+total bases: 6818288881
+Q20 bases: 6574939169(96.4309%)
+Q30 bases: 6189801084(90.7823%)
+
+Read2 before filtering:
+total reads: 45154231
+total bases: 6818288881
+Q20 bases: 6482976578(95.0822%)
+Q30 bases: 6051198010(88.7495%)
+
+Read1 after filtering:
+total reads: 44586761
+total bases: 6188841840
+Q20 bases: 5986442830(96.7296%)
+Q30 bases: 5645746634(91.2246%)
+
+Read2 aftering filtering:
+total reads: 44586761
+total bases: 6187517235
+Q20 bases: 5964753657(96.3998%)
+Q30 bases: 5600841856(90.5184%)
+
+Filtering result:
+reads passed filter: 89173522
+reads failed due to low quality: 1028042
+reads failed due to too many N: 14846
+reads failed due to too short: 92052
+reads with adapter trimmed: 32261750
+bases trimmed due to adapters: 1054880224
+reads with polyX in 3' end: 465205
+bases trimmed in polyX tail: 9505908
+
+Duplication rate: 3.44924%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR002_S2_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR002_S2_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR002_S2_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR002_S2_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_1_2/RR002_S2_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_1_2/RR002_S2_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR002_S2_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR002_S2_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 427 seconds
+
+real	7m6.891s
+user	47m22.525s
+sys	5m11.968s
+
+ Sample Name: ARPE19_1_3
+
+ Read 1: RR003_S3_L002_R1_001
+
+ Read 2: RR003_S3_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_1_3/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR003_S3_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR003_S3_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_1_3/RR003_S3_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_1_3/RR003_S3_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR003_S3_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR003_S3_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 41595367
+total bases: 6280900417
+Q20 bases: 6052309414(96.3605%)
+Q30 bases: 5687323120(90.5495%)
+
+Read2 before filtering:
+total reads: 41595367
+total bases: 6280900417
+Q20 bases: 6020419366(95.8528%)
+Q30 bases: 5639822691(89.7932%)
+
+Read1 after filtering:
+total reads: 41209157
+total bases: 5880627801
+Q20 bases: 5678334112(96.56%)
+Q30 bases: 5342631808(90.8514%)
+
+Read2 aftering filtering:
+total reads: 41209157
+total bases: 5879244193
+Q20 bases: 5677611347(96.5704%)
+Q30 bases: 5338076530(90.7953%)
+
+Filtering result:
+reads passed filter: 82418314
+reads failed due to low quality: 733244
+reads failed due to too many N: 14094
+reads failed due to too short: 25082
+reads with adapter trimmed: 27124966
+bases trimmed due to adapters: 672752751
+reads with polyX in 3' end: 352518
+bases trimmed in polyX tail: 5550421
+
+Duplication rate: 2.82068%
+
+Insert size peak (evaluated by paired-end reads): 144
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR003_S3_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR003_S3_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR003_S3_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR003_S3_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_1_3/RR003_S3_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_1_3/RR003_S3_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR003_S3_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR003_S3_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 403 seconds
+
+real	6m43.860s
+user	44m42.684s
+sys	4m50.199s
+
+ Sample Name: RasV12_1_4
+
+ Read 1: RR004_S4_L002_R1_001
+
+ Read 2: RR004_S4_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_1_4/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR004_S4_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR004_S4_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_1_4/RR004_S4_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_1_4/RR004_S4_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR004_S4_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR004_S4_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 32611364
+total bases: 4924315964
+Q20 bases: 4745195491(96.3625%)
+Q30 bases: 4463078551(90.6335%)
+
+Read2 before filtering:
+total reads: 32611364
+total bases: 4924315964
+Q20 bases: 4699748044(95.4396%)
+Q30 bases: 4384408245(89.0359%)
+
+Read1 after filtering:
+total reads: 32260860
+total bases: 4679917745
+Q20 bases: 4519680871(96.5761%)
+Q30 bases: 4256449135(90.9514%)
+
+Read2 aftering filtering:
+total reads: 32260860
+total bases: 4679090271
+Q20 bases: 4496554710(96.0989%)
+Q30 bases: 4207826157(89.9283%)
+
+Filtering result:
+reads passed filter: 64521720
+reads failed due to low quality: 660934
+reads failed due to too many N: 11262
+reads failed due to too short: 28812
+reads with adapter trimmed: 15650072
+bases trimmed due to adapters: 375138042
+reads with polyX in 3' end: 273214
+bases trimmed in polyX tail: 4337909
+
+Duplication rate: 2.41353%
+
+Insert size peak (evaluated by paired-end reads): 161
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR004_S4_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR004_S4_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR004_S4_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR004_S4_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_1_4/RR004_S4_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_1_4/RR004_S4_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR004_S4_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR004_S4_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 300 seconds
+
+real	5m0.276s
+user	35m12.678s
+sys	3m31.193s
+
+ Sample Name: T53D4_1_5
+
+ Read 1: RR005_S5_L002_R1_001
+
+ Read 2: RR005_S5_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_1_5/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR005_S5_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR005_S5_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_1_5/RR005_S5_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_1_5/RR005_S5_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR005_S5_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR005_S5_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 35904537
+total bases: 5421585087
+Q20 bases: 5224473565(96.3643%)
+Q30 bases: 4915061265(90.6573%)
+
+Read2 before filtering:
+total reads: 35904537
+total bases: 5421585087
+Q20 bases: 5190095801(95.7302%)
+Q30 bases: 4857248622(89.5909%)
+
+Read1 after filtering:
+total reads: 35532667
+total bases: 5103993317
+Q20 bases: 4929577652(96.5828%)
+Q30 bases: 4643395182(90.9757%)
+
+Read2 aftering filtering:
+total reads: 35532667
+total bases: 5102711144
+Q20 bases: 4919300029(96.4056%)
+Q30 bases: 4619489668(90.5301%)
+
+Filtering result:
+reads passed filter: 71065334
+reads failed due to low quality: 700926
+reads failed due to too many N: 12174
+reads failed due to too short: 30640
+reads with adapter trimmed: 21747016
+bases trimmed due to adapters: 513431990
+reads with polyX in 3' end: 334058
+bases trimmed in polyX tail: 6294006
+
+Duplication rate: 3.20767%
+
+Insert size peak (evaluated by paired-end reads): 146
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR005_S5_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR005_S5_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR005_S5_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR005_S5_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_1_5/RR005_S5_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_1_5/RR005_S5_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR005_S5_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR005_S5_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 366 seconds
+
+real	6m5.976s
+user	38m16.063s
+sys	4m0.879s
+
+ Sample Name: negclt_3_0
+
+ Read 1: RR012_S49_L002_R1_001
+
+ Read 2: RR012_S49_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_3_0/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR012_S49_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR012_S49_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_3_0/RR012_S49_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_3_0/RR012_S49_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR012_S49_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR012_S49_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 406499
+total bases: 61381349
+Q20 bases: 56425600(91.9263%)
+Q30 bases: 52245383(85.1161%)
+
+Read2 before filtering:
+total reads: 406499
+total bases: 61381349
+Q20 bases: 47658321(77.643%)
+Q30 bases: 40800861(66.4711%)
+
+Read1 after filtering:
+total reads: 194882
+total bases: 26265724
+Q20 bases: 25303192(96.3354%)
+Q30 bases: 23905583(91.0144%)
+
+Read2 aftering filtering:
+total reads: 194882
+total bases: 26531608
+Q20 bases: 25047820(94.4075%)
+Q30 bases: 23192783(87.4157%)
+
+Filtering result:
+reads passed filter: 389764
+reads failed due to low quality: 286502
+reads failed due to too many N: 8
+reads failed due to too short: 136724
+reads with adapter trimmed: 87394
+bases trimmed due to adapters: 2609728
+reads with polyX in 3' end: 34513
+bases trimmed in polyX tail: 740438
+
+Duplication rate: 3.51238%
+
+Insert size peak (evaluated by paired-end reads): 0
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR012_S49_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR012_S49_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR012_S49_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR012_S49_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_3_0/RR012_S49_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_3_0/RR012_S49_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR012_S49_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR012_S49_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 18 seconds
+
+real	0m18.520s
+user	0m30.971s
+sys	0m3.802s
+
+ Sample Name: MekDD_3_1
+
+ Read 1: RR013_S50_L002_R1_001
+
+ Read 2: RR013_S50_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_3_1/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR013_S50_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR013_S50_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_3_1/RR013_S50_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_3_1/RR013_S50_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR013_S50_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR013_S50_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 27806245
+total bases: 4198742995
+Q20 bases: 4048015514(96.4102%)
+Q30 bases: 3831451776(91.2524%)
+
+Read2 before filtering:
+total reads: 27806245
+total bases: 4198742995
+Q20 bases: 3962994541(94.3853%)
+Q30 bases: 3669353076(87.3917%)
+
+Read1 after filtering:
+total reads: 27355643
+total bases: 3866051048
+Q20 bases: 3754868849(97.1241%)
+Q30 bases: 3565012787(92.2133%)
+
+Read2 aftering filtering:
+total reads: 27355643
+total bases: 3865407144
+Q20 bases: 3692550424(95.5281%)
+Q30 bases: 3436615250(88.9069%)
+
+Filtering result:
+reads passed filter: 54711286
+reads failed due to low quality: 758402
+reads failed due to too many N: 1296
+reads failed due to too short: 141506
+reads with adapter trimmed: 16549254
+bases trimmed due to adapters: 508202317
+reads with polyX in 3' end: 288146
+bases trimmed in polyX tail: 5411683
+
+Duplication rate: 4.07113%
+
+Insert size peak (evaluated by paired-end reads): 160
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR013_S50_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR013_S50_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR013_S50_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR013_S50_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_3_1/RR013_S50_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_3_1/RR013_S50_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR013_S50_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR013_S50_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 283 seconds
+
+real	4m42.879s
+user	29m2.735s
+sys	3m4.129s
+
+ Sample Name: Akymyr_3_2
+
+ Read 1: RR014_S51_L002_R1_001
+
+ Read 2: RR014_S51_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Akymyr_3_2/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR014_S51_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR014_S51_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Akymyr_3_2/RR014_S51_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Akymyr_3_2/RR014_S51_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR014_S51_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR014_S51_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 28373331
+total bases: 4284372981
+Q20 bases: 4154434638(96.9672%)
+Q30 bases: 3941373918(91.9942%)
+
+Read2 before filtering:
+total reads: 28373331
+total bases: 4284372981
+Q20 bases: 4078799784(95.2018%)
+Q30 bases: 3800558481(88.7075%)
+
+Read1 after filtering:
+total reads: 28077836
+total bases: 4027939081
+Q20 bases: 3918024434(97.2712%)
+Q30 bases: 3724620840(92.4696%)
+
+Read2 aftering filtering:
+total reads: 28077836
+total bases: 4027332077
+Q20 bases: 3866404354(96.0041%)
+Q30 bases: 3615561733(89.7756%)
+
+Filtering result:
+reads passed filter: 56155672
+reads failed due to low quality: 545448
+reads failed due to too many N: 1406
+reads failed due to too short: 44136
+reads with adapter trimmed: 13774226
+bases trimmed due to adapters: 407828812
+reads with polyX in 3' end: 264653
+bases trimmed in polyX tail: 5159119
+
+Duplication rate: 3.58614%
+
+Insert size peak (evaluated by paired-end reads): 170
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR014_S51_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR014_S51_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR014_S51_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR014_S51_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Akymyr_3_2/RR014_S51_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Akymyr_3_2/RR014_S51_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR014_S51_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR014_S51_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 270 seconds
+
+real	4m30.489s
+user	30m30.011s
+sys	3m11.746s
+
+ Sample Name: ARPE19_3_3
+
+ Read 1: RR015_S52_L002_R1_001
+
+ Read 2: RR015_S52_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_3_3/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR015_S52_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR015_S52_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_3_3/RR015_S52_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_3_3/RR015_S52_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR015_S52_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR015_S52_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 28153955
+total bases: 4251247205
+Q20 bases: 4115692231(96.8114%)
+Q30 bases: 3895775955(91.6384%)
+
+Read2 before filtering:
+total reads: 28153955
+total bases: 4251247205
+Q20 bases: 4110064525(96.679%)
+Q30 bases: 3893346895(91.5813%)
+
+Read1 after filtering:
+total reads: 27950231
+total bases: 3978374823
+Q20 bases: 3862465751(97.0865%)
+Q30 bases: 3662968608(92.072%)
+
+Read2 aftering filtering:
+total reads: 27950231
+total bases: 3977583274
+Q20 bases: 3875099041(97.4235%)
+Q30 bases: 3683743835(92.6126%)
+
+Filtering result:
+reads passed filter: 55900462
+reads failed due to low quality: 384536
+reads failed due to too many N: 1406
+reads failed due to too short: 21506
+reads with adapter trimmed: 15712652
+bases trimmed due to adapters: 466863576
+reads with polyX in 3' end: 245158
+bases trimmed in polyX tail: 4301560
+
+Duplication rate: 3.35673%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR015_S52_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR015_S52_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR015_S52_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR015_S52_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_3_3/RR015_S52_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_3_3/RR015_S52_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR015_S52_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR015_S52_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 267 seconds
+
+real	4m27.550s
+user	29m16.531s
+sys	3m2.349s
+
+ Sample Name: RasV12_3_4
+
+ Read 1: RR016_S53_L002_R1_001
+
+ Read 2: RR016_S53_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_3_4/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR016_S53_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR016_S53_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_3_4/RR016_S53_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_3_4/RR016_S53_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR016_S53_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR016_S53_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 26809463
+total bases: 4048228913
+Q20 bases: 3922129503(96.8851%)
+Q30 bases: 3719526250(91.8803%)
+
+Read2 before filtering:
+total reads: 26809463
+total bases: 4048228913
+Q20 bases: 3839551849(94.8452%)
+Q30 bases: 3565454254(88.0744%)
+
+Read1 after filtering:
+total reads: 26450569
+total bases: 3825328965
+Q20 bases: 3718802123(97.2152%)
+Q30 bases: 3534333566(92.3929%)
+
+Read2 aftering filtering:
+total reads: 26450569
+total bases: 3824764804
+Q20 bases: 3659474584(95.6784%)
+Q30 bases: 3410365085(89.1654%)
+
+Filtering result:
+reads passed filter: 52901138
+reads failed due to low quality: 655524
+reads failed due to too many N: 1308
+reads failed due to too short: 60956
+reads with adapter trimmed: 11640790
+bases trimmed due to adapters: 324034520
+reads with polyX in 3' end: 251828
+bases trimmed in polyX tail: 4968390
+
+Duplication rate: 4.11293%
+
+Insert size peak (evaluated by paired-end reads): 169
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR016_S53_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR016_S53_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR016_S53_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR016_S53_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_3_4/RR016_S53_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_3_4/RR016_S53_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR016_S53_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR016_S53_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 272 seconds
+
+real	4m32.261s
+user	28m42.713s
+sys	2m59.647s
+
+ Sample Name: T53D4_3_5
+
+ Read 1: RR017_S54_L002_R1_001
+
+ Read 2: RR017_S54_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_3_5/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR017_S54_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR017_S54_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_3_5/RR017_S54_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_3_5/RR017_S54_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR017_S54_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR017_S54_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 24414369
+total bases: 3686569719
+Q20 bases: 3570296153(96.846%)
+Q30 bases: 3383892617(91.7897%)
+
+Read2 before filtering:
+total reads: 24414369
+total bases: 3686569719
+Q20 bases: 3551618967(96.3394%)
+Q30 bases: 3354780912(91.0001%)
+
+Read1 after filtering:
+total reads: 24171115
+total bases: 3462813744
+Q20 bases: 3363568795(97.134%)
+Q30 bases: 3193866986(92.2333%)
+
+Read2 aftering filtering:
+total reads: 24171115
+total bases: 3462076279
+Q20 bases: 3362223527(97.1158%)
+Q30 bases: 3187280682(92.0627%)
+
+Filtering result:
+reads passed filter: 48342230
+reads failed due to low quality: 444794
+reads failed due to too many N: 1064
+reads failed due to too short: 40650
+reads with adapter trimmed: 12742814
+bases trimmed due to adapters: 360059729
+reads with polyX in 3' end: 223344
+bases trimmed in polyX tail: 3917015
+
+Duplication rate: 3.9726%
+
+Insert size peak (evaluated by paired-end reads): 158
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR017_S54_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR017_S54_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR017_S54_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RR017_S54_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_3_5/RR017_S54_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_3_5/RR017_S54_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR017_S54_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RR017_S54_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 243 seconds
+
+real	4m2.413s
+user	26m14.705s
+sys	2m41.470s
+
+ Sample Name: RasV12_2_4
+
+ Read 1: RROOO10_S10_L002_R1_001
+
+ Read 2: RROOO10_S10_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_2_4/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO10_S10_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO10_S10_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_2_4/RROOO10_S10_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_2_4/RROOO10_S10_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO10_S10_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO10_S10_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 49766528
+total bases: 7514745728
+Q20 bases: 7242581821(96.3783%)
+Q30 bases: 6812823885(90.6594%)
+
+Read2 before filtering:
+total reads: 49766528
+total bases: 7514745728
+Q20 bases: 7196628182(95.7668%)
+Q30 bases: 6726636261(89.5125%)
+
+Read1 after filtering:
+total reads: 49282974
+total bases: 7087969206
+Q20 bases: 6846261434(96.5899%)
+Q30 bases: 6448131401(90.9729%)
+
+Read2 aftering filtering:
+total reads: 49282974
+total bases: 7086752692
+Q20 bases: 6821264992(96.2537%)
+Q30 bases: 6392553490(90.2043%)
+
+Filtering result:
+reads passed filter: 98565948
+reads failed due to low quality: 909840
+reads failed due to too many N: 17366
+reads failed due to too short: 39902
+reads with adapter trimmed: 29122150
+bases trimmed due to adapters: 693789998
+reads with polyX in 3' end: 425276
+bases trimmed in polyX tail: 8344482
+
+Duplication rate: 3.5077%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO10_S10_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO10_S10_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO10_S10_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO10_S10_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_2_4/RROOO10_S10_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_2_4/RROOO10_S10_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO10_S10_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO10_S10_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 501 seconds
+
+real	8m21.273s
+user	54m28.255s
+sys	5m37.007s
+
+ Sample Name: T53D4_2_5
+
+ Read 1: RROOO11_S11_L002_R1_001
+
+ Read 2: RROOO11_S11_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_2_5/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO11_S11_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO11_S11_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_2_5/RROOO11_S11_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_2_5/RROOO11_S11_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO11_S11_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO11_S11_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 52843865
+total bases: 7979423615
+Q20 bases: 7694871345(96.4339%)
+Q30 bases: 7240770443(90.743%)
+
+Read2 before filtering:
+total reads: 52843865
+total bases: 7979423615
+Q20 bases: 7669000983(96.1097%)
+Q30 bases: 7192989223(90.1442%)
+
+Read1 after filtering:
+total reads: 52424494
+total bases: 7333763415
+Q20 bases: 7087453920(96.6414%)
+Q30 bases: 6677785413(91.0554%)
+
+Read2 aftering filtering:
+total reads: 52424494
+total bases: 7332789706
+Q20 bases: 7085364627(96.6258%)
+Q30 bases: 6667709547(90.9301%)
+
+Filtering result:
+reads passed filter: 104848988
+reads failed due to low quality: 795468
+reads failed due to too many N: 17940
+reads failed due to too short: 25334
+reads with adapter trimmed: 43528238
+bases trimmed due to adapters: 1148258878
+reads with polyX in 3' end: 405591
+bases trimmed in polyX tail: 6538711
+
+Duplication rate: 4.00182%
+
+Insert size peak (evaluated by paired-end reads): 136
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO11_S11_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO11_S11_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO11_S11_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO11_S11_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_2_5/RROOO11_S11_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_2_5/RROOO11_S11_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO11_S11_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO11_S11_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 494 seconds
+
+real	8m14.088s
+user	56m16.937s
+sys	6m3.872s
+
+ Sample Name: negclt_2_0
+
+ Read 1: RROOO6_S6_L002_R1_001
+
+ Read 2: RROOO6_S6_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_2_0/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO6_S6_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO6_S6_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_2_0/RROOO6_S6_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_2_0/RROOO6_S6_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO6_S6_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO6_S6_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 439189
+total bases: 66317539
+Q20 bases: 59210495(89.2833%)
+Q30 bases: 54222007(81.7612%)
+
+Read2 before filtering:
+total reads: 439189
+total bases: 66317539
+Q20 bases: 48289237(72.8152%)
+Q30 bases: 40134949(60.5194%)
+
+Read1 after filtering:
+total reads: 121897
+total bases: 15601072
+Q20 bases: 14809654(94.9272%)
+Q30 bases: 13864113(88.8664%)
+
+Read2 aftering filtering:
+total reads: 121897
+total bases: 15767872
+Q20 bases: 14769582(93.6688%)
+Q30 bases: 13539364(85.8668%)
+
+Filtering result:
+reads passed filter: 243794
+reads failed due to low quality: 410458
+reads failed due to too many N: 36
+reads failed due to too short: 224090
+reads with adapter trimmed: 49904
+bases trimmed due to adapters: 1371937
+reads with polyX in 3' end: 45325
+bases trimmed in polyX tail: 999721
+
+Duplication rate: 1.78976%
+
+Insert size peak (evaluated by paired-end reads): 0
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO6_S6_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO6_S6_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO6_S6_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO6_S6_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_2_0/RROOO6_S6_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_2_0/RROOO6_S6_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO6_S6_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO6_S6_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 20 seconds
+
+real	0m20.107s
+user	0m31.113s
+sys	0m4.520s
+
+ Sample Name: MekDD_2_1
+
+ Read 1: RROOO7_S7_L002_R1_001
+
+ Read 2: RROOO7_S7_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_2_1/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO7_S7_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO7_S7_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_2_1/RROOO7_S7_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_2_1/RROOO7_S7_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO7_S7_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO7_S7_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 43622189
+total bases: 6586950539
+Q20 bases: 6353195663(96.4512%)
+Q30 bases: 5979087657(90.7717%)
+
+Read2 before filtering:
+total reads: 43622189
+total bases: 6586950539
+Q20 bases: 6314024207(95.8566%)
+Q30 bases: 5900790325(89.583%)
+
+Read1 after filtering:
+total reads: 43271289
+total bases: 6274065801
+Q20 bases: 6062535239(96.6285%)
+Q30 bases: 5711616809(91.0353%)
+
+Read2 aftering filtering:
+total reads: 43271289
+total bases: 6273208283
+Q20 bases: 6038630355(96.2606%)
+Q30 bases: 5655822640(90.1584%)
+
+Filtering result:
+reads passed filter: 86542578
+reads failed due to low quality: 663390
+reads failed due to too many N: 14816
+reads failed due to too short: 23594
+reads with adapter trimmed: 22741764
+bases trimmed due to adapters: 511231433
+reads with polyX in 3' end: 334138
+bases trimmed in polyX tail: 5854224
+
+Duplication rate: 3.10241%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO7_S7_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO7_S7_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO7_S7_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO7_S7_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_2_1/RROOO7_S7_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_2_1/RROOO7_S7_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO7_S7_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO7_S7_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 410 seconds
+
+real	6m49.463s
+user	46m45.747s
+sys	4m52.467s
+
+ Sample Name: Aktmyr_2_2
+
+ Read 1: RROOO8_S8_L002_R1_001
+
+ Read 2: RROOO8_S8_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_2_2/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO8_S8_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO8_S8_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_2_2/RROOO8_S8_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_2_2/RROOO8_S8_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO8_S8_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO8_S8_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 55094871
+total bases: 8319325521
+Q20 bases: 8038326232(96.6223%)
+Q30 bases: 7576689567(91.0734%)
+
+Read2 before filtering:
+total reads: 55094871
+total bases: 8319325521
+Q20 bases: 7990969790(96.0531%)
+Q30 bases: 7486065767(89.984%)
+
+Read1 after filtering:
+total reads: 54681884
+total bases: 7846022680
+Q20 bases: 7593466895(96.7811%)
+Q30 bases: 7164692658(91.3162%)
+
+Read2 aftering filtering:
+total reads: 54681884
+total bases: 7844722956
+Q20 bases: 7567569637(96.467%)
+Q30 bases: 7106585833(90.5907%)
+
+Filtering result:
+reads passed filter: 109363768
+reads failed due to low quality: 783566
+reads failed due to too many N: 18822
+reads failed due to too short: 23586
+reads with adapter trimmed: 34496752
+bases trimmed due to adapters: 811537676
+reads with polyX in 3' end: 403819
+bases trimmed in polyX tail: 6586154
+
+Duplication rate: 3.87894%
+
+Insert size peak (evaluated by paired-end reads): 151
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO8_S8_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO8_S8_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO8_S8_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO8_S8_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_2_2/RROOO8_S8_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_2_2/RROOO8_S8_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO8_S8_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO8_S8_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 546 seconds
+
+real	9m6.309s
+user	60m25.835s
+sys	6m20.107s
+
+ Sample Name: ARPE19_2_3
+
+ Read 1: RROOO9_S9_L002_R1_001
+
+ Read 2: RROOO9_S9_L002_R2_001
+
+ FASTP trimmed files are located in:
+ ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_2_3/
+
+ FASTP quality reports are located in:
+ ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO9_S9_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO9_S9_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_2_3/RROOO9_S9_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_2_3/RROOO9_S9_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO9_S9_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO9_S9_L002_R1_001_report.html -g -x -p -w 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+Read1 before filtering:
+total reads: 46554648
+total bases: 7029751848
+Q20 bases: 6776286795(96.3944%)
+Q30 bases: 6368741731(90.597%)
+
+Read2 before filtering:
+total reads: 46554648
+total bases: 7029751848
+Q20 bases: 6758826753(96.146%)
+Q30 bases: 6333285807(90.0926%)
+
+Read1 after filtering:
+total reads: 46211100
+total bases: 6724098420
+Q20 bases: 6492775960(96.5598%)
+Q30 bases: 6108385958(90.8432%)
+
+Read2 aftering filtering:
+total reads: 46211100
+total bases: 6723075532
+Q20 bases: 6488256865(96.5073%)
+Q30 bases: 6091802899(90.6104%)
+
+Filtering result:
+reads passed filter: 92422200
+reads failed due to low quality: 649094
+reads failed due to too many N: 16160
+reads failed due to too short: 21842
+reads with adapter trimmed: 22304130
+bases trimmed due to adapters: 497315408
+reads with polyX in 3' end: 366807
+bases trimmed in polyX tail: 6282358
+
+Duplication rate: 3.43209%
+
+Insert size peak (evaluated by paired-end reads): 165
+
+JSON report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO9_S9_L002_R1_001_report.json
+HTML report: ../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO9_S9_L002_R1_001_report.html
+
+fastp -i /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO9_S9_L002_R1_001.fastq -I /pl/active/onishimura_lab/PROJECTS/RR_ARPE_DELUCA_COLLAB/01_input/RROOO9_S9_L002_R2_001.fastq -o ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_2_3/RROOO9_S9_L002_R1_001_trim.fastq.gz -O ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_2_3/RROOO9_S9_L002_R2_001_trim.fastq.gz --json=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO9_S9_L002_R1_001_report.json --html=../03_output/2020-01-16_RRoutput_robs/01_fastp_reports/RROOO9_S9_L002_R1_001_report.html -g -x -p -w 16 
+fastp v0.20.0, time used: 461 seconds
+
+real	7m40.674s
+user	51m41.425s
+sys	5m17.055s
+
+>>> HISAT2: aligning each sample to the genome
+Alignment output located in directory ../03_output/2020-01-16_RRoutput_robs/03_hisat2/
+
+ Sample name: MekDD_1_1
+Read 1: RR001_S1_L002_R1_001_trim
+Read 2: RR001_S1_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_1_1/RR001_S1_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_1_1/RR001_S1_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR001_S1_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR001_S1_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR001_S1_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+38636780 reads; of these:
+  38636780 (100.00%) were paired; of these:
+    2033568 (5.26%) aligned concordantly 0 times
+    35182764 (91.06%) aligned concordantly exactly 1 time
+    1420448 (3.68%) aligned concordantly >1 times
+    ----
+    2033568 pairs aligned concordantly 0 times; of these:
+      110132 (5.42%) aligned discordantly 1 time
+    ----
+    1923436 pairs aligned 0 times concordantly or discordantly; of these:
+      3846872 mates make up the pairs; of these:
+        2604665 (67.71%) aligned 0 times
+        1185305 (30.81%) aligned exactly 1 time
+        56902 (1.48%) aligned >1 times
+96.63% overall alignment rate
+
+real	12m8.418s
+user	128m57.862s
+sys	40m8.955s
+
+ Sample name: Aktmyr_1_2
+Read 1: RR002_S2_L002_R1_001_trim
+Read 2: RR002_S2_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_1_2/RR002_S2_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_1_2/RR002_S2_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR002_S2_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR002_S2_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR002_S2_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+44586761 reads; of these:
+  44586761 (100.00%) were paired; of these:
+    2284714 (5.12%) aligned concordantly 0 times
+    40774521 (91.45%) aligned concordantly exactly 1 time
+    1527526 (3.43%) aligned concordantly >1 times
+    ----
+    2284714 pairs aligned concordantly 0 times; of these:
+      140967 (6.17%) aligned discordantly 1 time
+    ----
+    2143747 pairs aligned 0 times concordantly or discordantly; of these:
+      4287494 mates make up the pairs; of these:
+        2973586 (69.35%) aligned 0 times
+        1252780 (29.22%) aligned exactly 1 time
+        61128 (1.43%) aligned >1 times
+96.67% overall alignment rate
+
+real	12m49.720s
+user	142m15.666s
+sys	48m21.708s
+
+ Sample name: ARPE19_1_3
+Read 1: RR003_S3_L002_R1_001_trim
+Read 2: RR003_S3_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_1_3/RR003_S3_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_1_3/RR003_S3_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR003_S3_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR003_S3_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR003_S3_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+41209157 reads; of these:
+  41209157 (100.00%) were paired; of these:
+    1813376 (4.40%) aligned concordantly 0 times
+    37968951 (92.14%) aligned concordantly exactly 1 time
+    1426830 (3.46%) aligned concordantly >1 times
+    ----
+    1813376 pairs aligned concordantly 0 times; of these:
+      118932 (6.56%) aligned discordantly 1 time
+    ----
+    1694444 pairs aligned 0 times concordantly or discordantly; of these:
+      3388888 mates make up the pairs; of these:
+        2249610 (66.38%) aligned 0 times
+        1089311 (32.14%) aligned exactly 1 time
+        49967 (1.47%) aligned >1 times
+97.27% overall alignment rate
+
+real	11m56.711s
+user	132m8.694s
+sys	42m44.874s
+
+ Sample name: RasV12_1_4
+Read 1: RR004_S4_L002_R1_001_trim
+Read 2: RR004_S4_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_1_4/RR004_S4_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_1_4/RR004_S4_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR004_S4_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR004_S4_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR004_S4_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+32260860 reads; of these:
+  32260860 (100.00%) were paired; of these:
+    1790826 (5.55%) aligned concordantly 0 times
+    29333224 (90.93%) aligned concordantly exactly 1 time
+    1136810 (3.52%) aligned concordantly >1 times
+    ----
+    1790826 pairs aligned concordantly 0 times; of these:
+      74067 (4.14%) aligned discordantly 1 time
+    ----
+    1716759 pairs aligned 0 times concordantly or discordantly; of these:
+      3433518 mates make up the pairs; of these:
+        2389596 (69.60%) aligned 0 times
+        999786 (29.12%) aligned exactly 1 time
+        44136 (1.29%) aligned >1 times
+96.30% overall alignment rate
+
+real	9m38.485s
+user	110m47.796s
+sys	30m52.644s
+
+ Sample name: T53D4_1_5
+Read 1: RR005_S5_L002_R1_001_trim
+Read 2: RR005_S5_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_1_5/RR005_S5_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_1_5/RR005_S5_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR005_S5_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR005_S5_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR005_S5_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+35532667 reads; of these:
+  35532667 (100.00%) were paired; of these:
+    1722692 (4.85%) aligned concordantly 0 times
+    32565227 (91.65%) aligned concordantly exactly 1 time
+    1244748 (3.50%) aligned concordantly >1 times
+    ----
+    1722692 pairs aligned concordantly 0 times; of these:
+      97298 (5.65%) aligned discordantly 1 time
+    ----
+    1625394 pairs aligned 0 times concordantly or discordantly; of these:
+      3250788 mates make up the pairs; of these:
+        2193624 (67.48%) aligned 0 times
+        1010239 (31.08%) aligned exactly 1 time
+        46925 (1.44%) aligned >1 times
+96.91% overall alignment rate
+
+real	10m37.003s
+user	120m28.585s
+sys	35m3.561s
+
+ Sample name: negclt_3_0
+Read 1: RR012_S49_L002_R1_001_trim
+Read 2: RR012_S49_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_3_0/RR012_S49_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_3_0/RR012_S49_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR012_S49_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR012_S49_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR012_S49_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+194882 reads; of these:
+  194882 (100.00%) were paired; of these:
+    86240 (44.25%) aligned concordantly 0 times
+    104154 (53.44%) aligned concordantly exactly 1 time
+    4488 (2.30%) aligned concordantly >1 times
+    ----
+    86240 pairs aligned concordantly 0 times; of these:
+      351 (0.41%) aligned discordantly 1 time
+    ----
+    85889 pairs aligned 0 times concordantly or discordantly; of these:
+      171778 mates make up the pairs; of these:
+        162872 (94.82%) aligned 0 times
+        6058 (3.53%) aligned exactly 1 time
+        2848 (1.66%) aligned >1 times
+58.21% overall alignment rate
+
+real	0m10.290s
+user	0m41.440s
+sys	0m22.036s
+
+ Sample name: MekDD_3_1
+Read 1: RR013_S50_L002_R1_001_trim
+Read 2: RR013_S50_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_3_1/RR013_S50_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_3_1/RR013_S50_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR013_S50_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR013_S50_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR013_S50_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+27355643 reads; of these:
+  27355643 (100.00%) were paired; of these:
+    1823793 (6.67%) aligned concordantly 0 times
+    24517921 (89.63%) aligned concordantly exactly 1 time
+    1013929 (3.71%) aligned concordantly >1 times
+    ----
+    1823793 pairs aligned concordantly 0 times; of these:
+      103051 (5.65%) aligned discordantly 1 time
+    ----
+    1720742 pairs aligned 0 times concordantly or discordantly; of these:
+      3441484 mates make up the pairs; of these:
+        2414005 (70.14%) aligned 0 times
+        976401 (28.37%) aligned exactly 1 time
+        51078 (1.48%) aligned >1 times
+95.59% overall alignment rate
+
+real	8m1.265s
+user	90m57.999s
+sys	26m12.271s
+
+ Sample name: Akymyr_3_2
+Read 1: RR014_S51_L002_R1_001_trim
+Read 2: RR014_S51_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Akymyr_3_2/RR014_S51_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Akymyr_3_2/RR014_S51_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR014_S51_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR014_S51_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR014_S51_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+28077836 reads; of these:
+  28077836 (100.00%) were paired; of these:
+    1502380 (5.35%) aligned concordantly 0 times
+    25689241 (91.49%) aligned concordantly exactly 1 time
+    886215 (3.16%) aligned concordantly >1 times
+    ----
+    1502380 pairs aligned concordantly 0 times; of these:
+      99600 (6.63%) aligned discordantly 1 time
+    ----
+    1402780 pairs aligned 0 times concordantly or discordantly; of these:
+      2805560 mates make up the pairs; of these:
+        1842705 (65.68%) aligned 0 times
+        921386 (32.84%) aligned exactly 1 time
+        41469 (1.48%) aligned >1 times
+96.72% overall alignment rate
+
+real	8m11.699s
+user	90m52.181s
+sys	27m41.875s
+
+ Sample name: ARPE19_3_3
+Read 1: RR015_S52_L002_R1_001_trim
+Read 2: RR015_S52_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_3_3/RR015_S52_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_3_3/RR015_S52_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR015_S52_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR015_S52_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR015_S52_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+27950231 reads; of these:
+  27950231 (100.00%) were paired; of these:
+    1094807 (3.92%) aligned concordantly 0 times
+    25884855 (92.61%) aligned concordantly exactly 1 time
+    970569 (3.47%) aligned concordantly >1 times
+    ----
+    1094807 pairs aligned concordantly 0 times; of these:
+      102829 (9.39%) aligned discordantly 1 time
+    ----
+    991978 pairs aligned 0 times concordantly or discordantly; of these:
+      1983956 mates make up the pairs; of these:
+        1299409 (65.50%) aligned 0 times
+        649795 (32.75%) aligned exactly 1 time
+        34752 (1.75%) aligned >1 times
+97.68% overall alignment rate
+
+real	8m26.091s
+user	95m3.905s
+sys	27m43.960s
+
+ Sample name: RasV12_3_4
+Read 1: RR016_S53_L002_R1_001_trim
+Read 2: RR016_S53_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_3_4/RR016_S53_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_3_4/RR016_S53_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR016_S53_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR016_S53_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR016_S53_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+26450569 reads; of these:
+  26450569 (100.00%) were paired; of these:
+    1785860 (6.75%) aligned concordantly 0 times
+    23770858 (89.87%) aligned concordantly exactly 1 time
+    893851 (3.38%) aligned concordantly >1 times
+    ----
+    1785860 pairs aligned concordantly 0 times; of these:
+      81597 (4.57%) aligned discordantly 1 time
+    ----
+    1704263 pairs aligned 0 times concordantly or discordantly; of these:
+      3408526 mates make up the pairs; of these:
+        2421880 (71.05%) aligned 0 times
+        941874 (27.63%) aligned exactly 1 time
+        44772 (1.31%) aligned >1 times
+95.42% overall alignment rate
+
+real	7m55.165s
+user	87m19.249s
+sys	26m49.641s
+
+ Sample name: T53D4_3_5
+Read 1: RR017_S54_L002_R1_001_trim
+Read 2: RR017_S54_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_3_5/RR017_S54_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_3_5/RR017_S54_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR017_S54_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR017_S54_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR017_S54_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+24171115 reads; of these:
+  24171115 (100.00%) were paired; of these:
+    1096924 (4.54%) aligned concordantly 0 times
+    22230137 (91.97%) aligned concordantly exactly 1 time
+    844054 (3.49%) aligned concordantly >1 times
+    ----
+    1096924 pairs aligned concordantly 0 times; of these:
+      81800 (7.46%) aligned discordantly 1 time
+    ----
+    1015124 pairs aligned 0 times concordantly or discordantly; of these:
+      2030248 mates make up the pairs; of these:
+        1394656 (68.69%) aligned 0 times
+        603213 (29.71%) aligned exactly 1 time
+        32379 (1.59%) aligned >1 times
+97.12% overall alignment rate
+
+real	6m48.729s
+user	76m37.364s
+sys	23m57.650s
+
+ Sample name: RasV12_2_4
+Read 1: RROOO10_S10_L002_R1_001_trim
+Read 2: RROOO10_S10_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_2_4/RROOO10_S10_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/RasV12_2_4/RROOO10_S10_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO10_S10_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO10_S10_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO10_S10_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+49282974 reads; of these:
+  49282974 (100.00%) were paired; of these:
+    2654348 (5.39%) aligned concordantly 0 times
+    44828880 (90.96%) aligned concordantly exactly 1 time
+    1799746 (3.65%) aligned concordantly >1 times
+    ----
+    2654348 pairs aligned concordantly 0 times; of these:
+      125768 (4.74%) aligned discordantly 1 time
+    ----
+    2528580 pairs aligned 0 times concordantly or discordantly; of these:
+      5057160 mates make up the pairs; of these:
+        3568502 (70.56%) aligned 0 times
+        1422079 (28.12%) aligned exactly 1 time
+        66579 (1.32%) aligned >1 times
+96.38% overall alignment rate
+
+real	14m19.514s
+user	164m38.703s
+sys	46m19.160s
+
+ Sample name: T53D4_2_5
+Read 1: RROOO11_S11_L002_R1_001_trim
+Read 2: RROOO11_S11_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_2_5/RROOO11_S11_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/T53D4_2_5/RROOO11_S11_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO11_S11_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO11_S11_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO11_S11_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+52424494 reads; of these:
+  52424494 (100.00%) were paired; of these:
+    2256107 (4.30%) aligned concordantly 0 times
+    48161272 (91.87%) aligned concordantly exactly 1 time
+    2007115 (3.83%) aligned concordantly >1 times
+    ----
+    2256107 pairs aligned concordantly 0 times; of these:
+      177280 (7.86%) aligned discordantly 1 time
+    ----
+    2078827 pairs aligned 0 times concordantly or discordantly; of these:
+      4157654 mates make up the pairs; of these:
+        2802543 (67.41%) aligned 0 times
+        1291203 (31.06%) aligned exactly 1 time
+        63908 (1.54%) aligned >1 times
+97.33% overall alignment rate
+
+real	14m55.994s
+user	161m57.686s
+sys	55m55.881s
+
+ Sample name: negclt_2_0
+Read 1: RROOO6_S6_L002_R1_001_trim
+Read 2: RROOO6_S6_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_2_0/RROOO6_S6_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/negclt_2_0/RROOO6_S6_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO6_S6_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO6_S6_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO6_S6_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+121897 reads; of these:
+  121897 (100.00%) were paired; of these:
+    46946 (38.51%) aligned concordantly 0 times
+    71404 (58.58%) aligned concordantly exactly 1 time
+    3547 (2.91%) aligned concordantly >1 times
+    ----
+    46946 pairs aligned concordantly 0 times; of these:
+      226 (0.48%) aligned discordantly 1 time
+    ----
+    46720 pairs aligned 0 times concordantly or discordantly; of these:
+      93440 mates make up the pairs; of these:
+        85351 (91.34%) aligned 0 times
+        4974 (5.32%) aligned exactly 1 time
+        3115 (3.33%) aligned >1 times
+64.99% overall alignment rate
+
+real	0m8.302s
+user	0m27.063s
+sys	0m14.607s
+
+ Sample name: MekDD_2_1
+Read 1: RROOO7_S7_L002_R1_001_trim
+Read 2: RROOO7_S7_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_2_1/RROOO7_S7_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/MekDD_2_1/RROOO7_S7_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO7_S7_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO7_S7_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO7_S7_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+43271289 reads; of these:
+  43271289 (100.00%) were paired; of these:
+    2036370 (4.71%) aligned concordantly 0 times
+    39684807 (91.71%) aligned concordantly exactly 1 time
+    1550112 (3.58%) aligned concordantly >1 times
+    ----
+    2036370 pairs aligned concordantly 0 times; of these:
+      101545 (4.99%) aligned discordantly 1 time
+    ----
+    1934825 pairs aligned 0 times concordantly or discordantly; of these:
+      3869650 mates make up the pairs; of these:
+        2596410 (67.10%) aligned 0 times
+        1216429 (31.44%) aligned exactly 1 time
+        56811 (1.47%) aligned >1 times
+97.00% overall alignment rate
+
+real	12m27.353s
+user	143m11.496s
+sys	39m21.839s
+
+ Sample name: Aktmyr_2_2
+Read 1: RROOO8_S8_L002_R1_001_trim
+Read 2: RROOO8_S8_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_2_2/RROOO8_S8_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/Aktmyr_2_2/RROOO8_S8_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO8_S8_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO8_S8_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO8_S8_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+54681884 reads; of these:
+  54681884 (100.00%) were paired; of these:
+    2551290 (4.67%) aligned concordantly 0 times
+    50212181 (91.83%) aligned concordantly exactly 1 time
+    1918413 (3.51%) aligned concordantly >1 times
+    ----
+    2551290 pairs aligned concordantly 0 times; of these:
+      148220 (5.81%) aligned discordantly 1 time
+    ----
+    2403070 pairs aligned 0 times concordantly or discordantly; of these:
+      4806140 mates make up the pairs; of these:
+        3288808 (68.43%) aligned 0 times
+        1450290 (30.18%) aligned exactly 1 time
+        67042 (1.39%) aligned >1 times
+96.99% overall alignment rate
+
+real	15m43.264s
+user	176m51.977s
+sys	55m6.429s
+
+ Sample name: ARPE19_2_3
+Read 1: RROOO9_S9_L002_R1_001_trim
+Read 2: RROOO9_S9_L002_R2_001_trim
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg hisat2 -x /projects/dcking@colostate.edu/support_data/hg38/hg38 -1 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_2_3/RROOO9_S9_L002_R1_001_trim.fastq.gz -2 ../03_output/2020-01-16_RRoutput_robs/02_fastp_trim/ARPE19_2_3/RROOO9_S9_L002_R2_001_trim.fastq.gz -S ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO9_S9_L002_R1_001_trim.sam --summary-file ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO9_S9_L002_R1_001_trim_summary.txt --un-conc ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO9_S9_L002_R1_001_trim_unaligned.sam -p 16
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+46211100 reads; of these:
+  46211100 (100.00%) were paired; of these:
+    1943800 (4.21%) aligned concordantly 0 times
+    42671310 (92.34%) aligned concordantly exactly 1 time
+    1595990 (3.45%) aligned concordantly >1 times
+    ----
+    1943800 pairs aligned concordantly 0 times; of these:
+      102499 (5.27%) aligned discordantly 1 time
+    ----
+    1841301 pairs aligned 0 times concordantly or discordantly; of these:
+      3682602 mates make up the pairs; of these:
+        2390544 (64.91%) aligned 0 times
+        1236719 (33.58%) aligned exactly 1 time
+        55339 (1.50%) aligned >1 times
+97.41% overall alignment rate
+
+real	14m24.794s
+user	162m36.705s
+sys	49m48.982s
+
+>>> FEATURECOUNTS: Run featureCounts on all files to tabulate read counts per gene
+Tabulation output files are located in: ../03_output/2020-01-16_RRoutput_robs/04_feature/
+Acquire .sam file names
+File: RR001_S1_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR001_S1_L002_R1_001_trim.sam
+File: RR002_S2_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR002_S2_L002_R1_001_trim.sam
+File: RR003_S3_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR003_S3_L002_R1_001_trim.sam
+File: RR004_S4_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR004_S4_L002_R1_001_trim.sam
+File: RR005_S5_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR005_S5_L002_R1_001_trim.sam
+File: RR012_S49_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR012_S49_L002_R1_001_trim.sam
+File: RR013_S50_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR013_S50_L002_R1_001_trim.sam
+File: RR014_S51_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR014_S51_L002_R1_001_trim.sam
+File: RR015_S52_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR015_S52_L002_R1_001_trim.sam
+File: RR016_S53_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR016_S53_L002_R1_001_trim.sam
+File: RR017_S54_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR017_S54_L002_R1_001_trim.sam
+File: RROOO10_S10_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO10_S10_L002_R1_001_trim.sam
+File: RROOO11_S11_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO11_S11_L002_R1_001_trim.sam
+File: RROOO6_S6_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO6_S6_L002_R1_001_trim.sam
+File: RROOO7_S7_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO7_S7_L002_R1_001_trim.sam
+File: RROOO8_S8_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO8_S8_L002_R1_001_trim.sam
+File: RROOO9_S9_L002_R1_001_trim.sam
+Path: ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO9_S9_L002_R1_001_trim.sam
+
+ 	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg featureCounts -p -Q 20 -T 16 -a /projects/dcking@colostate.edu/support_data/hg38/hg38_pc_20200113_UCSC_compatible.gtf -o ../03_output/2020-01-16_RRoutput_robs/04_feature/counts.txt ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR001_S1_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR002_S2_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR003_S3_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR004_S4_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR005_S5_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR012_S49_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR013_S50_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR014_S51_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR015_S52_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR016_S53_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR017_S54_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO10_S10_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO11_S11_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO6_S6_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO7_S7_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO8_S8_L002_R1_001_trim.sam ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO9_S9_L002_R1_001_trim.sam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+        ==========     _____ _    _ ____  _____  ______          _____  
+        =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \ 
+          =====      | (___ | |  | | |_) | |__) | |__     /  \  | |  | |
+            ====      \___ \| |  | |  _ <|  _  /|  __|   / /\ \ | |  | |
+              ====    ____) | |__| | |_) | | \ \| |____ / ____ \| |__| |
+        ==========   |_____/ \____/|____/|_|  \_\______/_/    \_\_____/
+	  v1.6.4
+
+//========================== featureCounts setting ===========================\\
+||                                                                            ||
+||             Input files : 17 SAM files                                     ||
+||                           P RR001_S1_L002_R1_001_trim.sam                  ||
+||                           P RR002_S2_L002_R1_001_trim.sam                  ||
+||                           P RR003_S3_L002_R1_001_trim.sam                  ||
+||                           P RR004_S4_L002_R1_001_trim.sam                  ||
+||                           P RR005_S5_L002_R1_001_trim.sam                  ||
+||                           P RR012_S49_L002_R1_001_trim.sam                 ||
+||                           P RR013_S50_L002_R1_001_trim.sam                 ||
+||                           P RR014_S51_L002_R1_001_trim.sam                 ||
+||                           P RR015_S52_L002_R1_001_trim.sam                 ||
+||                           P RR016_S53_L002_R1_001_trim.sam                 ||
+||                           P RR017_S54_L002_R1_001_trim.sam                 ||
+||                           P RROOO10_S10_L002_R1_001_trim.sam               ||
+||                           P RROOO11_S11_L002_R1_001_trim.sam               ||
+||                           P RROOO6_S6_L002_R1_001_trim.sam                 ||
+||                           P RROOO7_S7_L002_R1_001_trim.sam                 ||
+||                           P RROOO8_S8_L002_R1_001_trim.sam                 ||
+||                           P RROOO9_S9_L002_R1_001_trim.sam                 ||
+||                                                                            ||
+||             Output file : counts.txt                                       ||
+||                 Summary : counts.txt.summary                               ||
+||              Annotation : hg38_pc_20200113_UCSC_compatible.gtf (GTF)       ||
+||      Dir for temp files : ../03_output/2020-01-16_RRoutput_robs/04_fea ... ||
+||                                                                            ||
+||                 Threads : 16                                               ||
+||                   Level : meta-feature level                               ||
+||              Paired-end : yes                                              ||
+||      Multimapping reads : not counted                                      ||
+|| Multi-overlapping reads : not counted                                      ||
+||   Min overlapping bases : 1                                                ||
+||                                                                            ||
+||          Chimeric reads : counted                                          ||
+||        Both ends mapped : not required                                     ||
+||                                                                            ||
+\\============================================================================//
+
+//================================= Running ==================================\\
+||                                                                            ||
+|| Load annotation file hg38_pc_20200113_UCSC_compatible.gtf ...              ||
+||    Features : 1143669                                                      ||
+||    Meta-features : 20004                                                   ||
+||    Chromosomes/contigs : 26                                                ||
+||                                                                            ||
+|| Process SAM file RR001_S1_L002_R1_001_trim.sam...                          ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 41038308                                             ||
+||    Successfully assigned alignments : 32742180 (79.8%)                     ||
+||    Running time : 5.27 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR002_S2_L002_R1_001_trim.sam...                          ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 47249415                                             ||
+||    Successfully assigned alignments : 37983741 (80.4%)                     ||
+||    Running time : 5.91 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR003_S3_L002_R1_001_trim.sam...                          ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 43709079                                             ||
+||    Successfully assigned alignments : 35245525 (80.6%)                     ||
+||    Running time : 5.58 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR004_S4_L002_R1_001_trim.sam...                          ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 34137759                                             ||
+||    Successfully assigned alignments : 27394418 (80.2%)                     ||
+||    Running time : 4.42 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR005_S5_L002_R1_001_trim.sam...                          ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 37710912                                             ||
+||    Successfully assigned alignments : 30498265 (80.9%)                     ||
+||    Running time : 4.84 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR012_S49_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 210725                                               ||
+||    Successfully assigned alignments : 29312 (13.9%)                        ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR013_S50_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 29272537                                             ||
+||    Successfully assigned alignments : 22899434 (78.2%)                     ||
+||    Running time : 3.71 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR014_S51_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 29579612                                             ||
+||    Successfully assigned alignments : 24054250 (81.3%)                     ||
+||    Running time : 3.80 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR015_S52_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 29683890                                             ||
+||    Successfully assigned alignments : 24021459 (80.9%)                     ||
+||    Running time : 3.85 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR016_S53_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 28104220                                             ||
+||    Successfully assigned alignments : 22238451 (79.1%)                     ||
+||    Running time : 3.60 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RR017_S54_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 25723391                                             ||
+||    Successfully assigned alignments : 20625875 (80.2%)                     ||
+||    Running time : 3.29 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RROOO10_S10_L002_R1_001_trim.sam...                       ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 52330144                                             ||
+||    Successfully assigned alignments : 41695381 (79.7%)                     ||
+||    Running time : 6.71 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RROOO11_S11_L002_R1_001_trim.sam...                       ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 55928619                                             ||
+||    Successfully assigned alignments : 44599751 (79.7%)                     ||
+||    Running time : 7.05 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RROOO6_S6_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 136956                                               ||
+||    Successfully assigned alignments : 60004 (43.8%)                        ||
+||    Running time : 0.04 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RROOO7_S7_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 45842716                                             ||
+||    Successfully assigned alignments : 36954046 (80.6%)                     ||
+||    Running time : 5.93 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RROOO8_S8_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 57939891                                             ||
+||    Successfully assigned alignments : 46550498 (80.3%)                     ||
+||    Running time : 7.44 minutes                                             ||
+||                                                                            ||
+|| Process SAM file RROOO9_S9_L002_R1_001_trim.sam...                         ||
+||    Paired-end reads are included.                                          ||
+||    Assign alignments (paired-end) to features...                           ||
+||                                                                            ||
+||    WARNING: reads from the same pair were found not adjacent to each       ||
+||             other in the input (due to read sorting by location or         ||
+||             reporting of multi-mapping read pairs).                        ||
+||                                                                            ||
+||    Pairing up the read pairs.                                              ||
+||                                                                            ||
+||    Total alignments : 48865428                                             ||
+||    Successfully assigned alignments : 39548207 (80.9%)                     ||
+||    Running time : 6.36 minutes                                             ||
+||                                                                            ||
+||                                                                            ||
+|| Summary of counting results can be found in file "../03_output/2020-01-16  ||
+|| _RRoutput_robs/04_feature/counts.txt.summary"                              ||
+||                                                                            ||
+\\============================================================================//
+
+
+real	78m3.678s
+user	39m25.889s
+sys	5m24.147s
+
+>>> SAMTOOLS/BAMCOVERAGE: to convert files to uploadable _sort.bam and _sort.bam.bai files:
+	 Samtools output files located in: ../03_output/2020-01-16_RRoutput_robs/05_samtools/
+
+ >>> Converting Filex: RR001_S1_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR001_S1_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	5m51.708s
+user	8m56.153s
+sys	0m25.266s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.303s
+user	0m0.038s
+sys	0m0.131s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR001_S1_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 32 files and 16 in-memory blocks...
+
+real	3m9.473s
+user	11m57.590s
+sys	1m20.227s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m40.168s
+user	0m39.012s
+sys	0m1.095s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR001_S1_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m34.671s
+user	73m1.191s
+sys	1m26.869s
+
+ >>> Converting Filex: RR002_S2_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR002_S2_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	6m35.460s
+user	10m0.497s
+sys	0m27.976s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.371s
+user	0m0.040s
+sys	0m0.130s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR002_S2_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 32 files and 16 in-memory blocks...
+
+real	3m20.865s
+user	12m50.431s
+sys	1m27.681s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m45.382s
+user	0m44.169s
+sys	0m1.151s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR002_S2_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m47.790s
+user	73m55.996s
+sys	1m26.809s
+
+ >>> Converting Filex: RR003_S3_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR003_S3_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	6m13.859s
+user	9m24.406s
+sys	0m25.542s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.321s
+user	0m0.044s
+sys	0m0.125s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR003_S3_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 32 files and 16 in-memory blocks...
+
+real	3m11.487s
+user	12m20.138s
+sys	1m24.298s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m42.485s
+user	0m41.292s
+sys	0m1.107s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR003_S3_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m47.057s
+user	74m49.803s
+sys	1m27.822s
+
+ >>> Converting Filex: RR004_S4_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR004_S4_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	4m53.655s
+user	7m35.239s
+sys	0m21.113s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.210s
+user	0m0.046s
+sys	0m0.118s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR004_S4_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 32 files and 16 in-memory blocks...
+
+real	2m40.146s
+user	10m29.076s
+sys	1m13.013s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m33.948s
+user	0m32.943s
+sys	0m0.906s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR004_S4_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m16.680s
+user	67m35.629s
+sys	1m29.828s
+
+ >>> Converting Filex: RR005_S5_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR005_S5_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	5m23.559s
+user	8m13.401s
+sys	0m22.791s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.322s
+user	0m0.045s
+sys	0m0.121s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR005_S5_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 32 files and 16 in-memory blocks...
+
+real	2m53.551s
+user	11m10.768s
+sys	1m24.199s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m36.960s
+user	0m35.864s
+sys	0m0.995s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR005_S5_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m8.248s
+user	70m27.186s
+sys	1m27.429s
+
+ >>> Converting Filex: RR012_S49_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR012_S49_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m1.903s
+user	0m2.425s
+sys	0m0.233s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.165s
+user	0m0.035s
+sys	0m0.122s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR012_S49_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 0 files and 16 in-memory blocks...
+
+real	0m0.792s
+user	0m2.380s
+sys	0m0.279s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.476s
+user	0m0.315s
+sys	0m0.129s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR012_S49_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	3m21.826s
+user	49m47.358s
+sys	1m42.962s
+
+ >>> Converting Filex: RR013_S50_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR013_S50_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	4m7.003s
+user	6m17.187s
+sys	0m17.554s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.230s
+user	0m0.040s
+sys	0m0.121s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR013_S50_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 16 files and 16 in-memory blocks...
+
+real	2m0.886s
+user	7m45.457s
+sys	1m1.062s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m28.995s
+user	0m28.139s
+sys	0m0.793s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR013_S50_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	5m37.685s
+user	66m0.170s
+sys	1m26.725s
+
+ >>> Converting Filex: RR014_S51_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR014_S51_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	4m12.323s
+user	6m26.436s
+sys	0m17.759s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.316s
+user	0m0.047s
+sys	0m0.112s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR014_S51_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 16 files and 16 in-memory blocks...
+
+real	2m6.339s
+user	7m42.942s
+sys	1m17.128s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m28.915s
+user	0m27.983s
+sys	0m0.822s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR014_S51_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	5m46.189s
+user	66m52.072s
+sys	1m27.354s
+
+ >>> Converting Filex: RR015_S52_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR015_S52_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	4m12.093s
+user	6m13.316s
+sys	0m18.098s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.214s
+user	0m0.042s
+sys	0m0.122s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR015_S52_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 16 files and 16 in-memory blocks...
+
+real	1m57.595s
+user	7m25.256s
+sys	0m56.139s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m28.395s
+user	0m27.513s
+sys	0m0.786s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR015_S52_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	5m42.427s
+user	66m34.211s
+sys	1m24.477s
+
+ >>> Converting Filex: RR016_S53_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR016_S53_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	4m0.387s
+user	6m9.720s
+sys	0m16.747s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.191s
+user	0m0.042s
+sys	0m0.118s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR016_S53_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 16 files and 16 in-memory blocks...
+
+real	2m2.793s
+user	7m35.364s
+sys	1m10.935s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m27.810s
+user	0m27.005s
+sys	0m0.703s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR016_S53_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	5m50.570s
+user	66m49.004s
+sys	1m29.177s
+
+ >>> Converting Filex: RR017_S54_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR017_S54_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	3m39.607s
+user	5m23.768s
+sys	0m14.766s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.229s
+user	0m0.045s
+sys	0m0.127s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RR017_S54_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 16 files and 16 in-memory blocks...
+
+real	1m48.356s
+user	6m43.155s
+sys	0m51.619s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m24.755s
+user	0m23.838s
+sys	0m0.821s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RR017_S54_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	5m28.784s
+user	64m26.099s
+sys	1m24.828s
+
+ >>> Converting Filex: RROOO10_S10_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO10_S10_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	7m29.499s
+user	11m26.973s
+sys	0m33.367s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.265s
+user	0m0.036s
+sys	0m0.128s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO10_S10_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 48 files and 16 in-memory blocks...
+
+real	4m10.110s
+user	15m51.818s
+sys	1m32.891s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m50.735s
+user	0m49.189s
+sys	0m1.404s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO10_S10_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	7m6.795s
+user	76m54.650s
+sys	1m30.705s
+
+ >>> Converting Filex: RROOO11_S11_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO11_S11_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	7m49.873s
+user	11m46.144s
+sys	0m33.886s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.526s
+user	0m0.043s
+sys	0m0.122s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO11_S11_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 48 files and 16 in-memory blocks...
+
+real	4m22.539s
+user	16m14.313s
+sys	1m41.118s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m52.769s
+user	0m51.439s
+sys	0m1.259s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO11_S11_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m53.224s
+user	78m37.199s
+sys	1m27.547s
+
+ >>> Converting Filex: RROOO6_S6_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO6_S6_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m1.452s
+user	0m1.589s
+sys	0m0.202s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.162s
+user	0m0.026s
+sys	0m0.130s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO6_S6_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 0 files and 16 in-memory blocks...
+
+real	0m0.570s
+user	0m1.527s
+sys	0m0.242s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.357s
+user	0m0.201s
+sys	0m0.126s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO6_S6_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	3m21.878s
+user	49m27.683s
+sys	1m41.508s
+
+ >>> Converting Filex: RROOO7_S7_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO7_S7_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	6m35.437s
+user	10m6.580s
+sys	0m28.201s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.250s
+user	0m0.035s
+sys	0m0.123s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO7_S7_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 32 files and 16 in-memory blocks...
+
+real	3m33.155s
+user	13m7.643s
+sys	1m35.475s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m45.171s
+user	0m43.629s
+sys	0m1.195s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO7_S7_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m31.983s
+user	74m9.492s
+sys	1m26.785s
+
+ >>> Converting Filex: RROOO8_S8_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO8_S8_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	8m16.765s
+user	12m31.831s
+sys	0m34.612s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.326s
+user	0m0.038s
+sys	0m0.124s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO8_S8_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 48 files and 16 in-memory blocks...
+
+real	4m37.967s
+user	16m52.086s
+sys	2m0.946s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m55.976s
+user	0m54.517s
+sys	0m1.380s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO8_S8_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	7m20.717s
+user	81m7.524s
+sys	1m31.044s
+
+ >>> Converting Filex: RROOO9_S9_L002_R1_001
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools view --threads 16 -bS ../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO9_S9_L002_R1_001_trim.sam > ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	7m1.816s
+user	10m51.470s
+sys	0m30.222s
+	 $ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools quickcheck ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m0.500s
+user	0m0.032s
+sys	0m0.135s
+removed ‘../03_output/2020-01-16_RRoutput_robs/03_hisat2/RROOO9_S9_L002_R1_001_trim.sam’
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools sort --threads 16 -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim_sort.bam --reference /projects/dcking@colostate.edu/support_data/hg38/hg38chromFa.fa ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+[bam_sort_core] merging from 32 files and 16 in-memory blocks...
+
+real	3m42.767s
+user	13m39.246s
+sys	1m31.508s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg samtools index ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim_sort.bam
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+real	0m47.882s
+user	0m46.569s
+sys	0m1.238s
+	$ singularity run /projects/rtpw@colostate.edu/container_images/summitRNAseq.simg bamCoverage -b ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim_sort.bam -o ../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim_sort.bw --outFileFormat bigwig -p 16 --normalizeUsing CPM --binSize 1
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+normalization: CPM
+minFragmentLength: 0
+verbose: False
+out_file_for_raw_data: None
+numberOfSamples: None
+bedFile: None
+bamFilesList: ['../03_output/2020-01-16_RRoutput_robs/05_samtools/RROOO9_S9_L002_R1_001_trim_sort.bam']
+numberOfProcessors: 16
+samFlag_exclude: None
+save_data: False
+stepSize: 1
+smoothLength: None
+blackListFileName: None
+center_read: False
+skipZeroOverZero: False
+ignoreDuplicates: False
+defaultFragmentLength: read length
+chrsToSkip: []
+region: None
+maxPairedFragmentLength: 1000
+samFlag_include: None
+binLength: 1
+maxFragmentLength: 0
+minMappingQuality: None
+zerosToNans: False
+
+real	6m39.738s
+user	75m23.629s
+sys	1m28.484s
+
+>>> VERSIONS:
+
+>>> FASEQC VERSION:
+summitRNAseq_PE_analyzer.sh: line 315: --version: command not found
+
+>>> HISAT2 VERSION:
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+/opt/conda/envs/summit_rnaseq/bin/hisat2-align-s version 2.1.0
+64-bit
+Built on login-node03
+Wed Jun  7 15:53:42 EDT 2017
+Compiler: gcc version 4.8.2 (GCC) 
+Options: -O3 -m64 -msse2 -funroll-loops -g3 -DPOPCNT_CAPABILITY
+Sizeof {int, long, long long, void*, size_t, off_t}: {4, 8, 8, 8, 8, 8}
+
+>>> SAMTOOLS VERSION:
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+samtools 1.9
+Using htslib 1.9
+Copyright (C) 2018 Genome Research Ltd.
+
+>>> FEATURECOUNTS VERSION:
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+
+featureCounts v1.6.4
+
+
+>>> BAMCOVERAGE VERSION:
+[33mWARNING:[0m skipping mount of /rc_scratch: no such file or directory
+bamCoverage 3.2.0
+>>> END: Analayzer complete.
+bash: RNAseq_cleanup_mouse_181011.sh: No such file or directory

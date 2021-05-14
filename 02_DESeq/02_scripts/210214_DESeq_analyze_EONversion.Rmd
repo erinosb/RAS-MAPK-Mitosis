@@ -1,0 +1,761 @@
+---
+title: "01_DESeq_analyze_EONVersion"
+author: "Romario Romain & Erin Osborne Nishimura"
+date: "1/28/2021"
+output: html_document
+---
+
+_NOTES: I need to update it to make a Pearson Correlation table_
+
+# Analysis: DESeq2 analysis
+
+The purpose of this analysis is to run the full set of RNA-seq samples through DESeq2
+
+
+## Step 1: Install required libraries if not already present; Load libraries:
+
+Install the following if not already installed:
+
+  + DESeq2
+  + RColorBrewer
+  + pheatmap
+  + ggplot2
+  + BiocManager
+  + GenomicFeatures
+  + ensembldb
+  + biomaRt
+  + dplyr
+  + tibble
+  + tidyverse
+  + gridExtra
+
+
+```{r install packages, echo = FALSE}
+# #Install bioconductor R version 3.6 or greater
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#    install.packages("BiocManager")
+#BiocManager::install(version = "3.12")
+# 
+# ## When prompted to install (a/s) all or some of the dependent packages, move your cursor down to the console and type "a" for all
+# 
+#Install DESeq2:
+# 
+# library(BiocManager)
+#  if (!requireNamespace("BiocManager", quietly = TRUE))
+#          install.packages("BiocManager")
+#   BiocManager::install("DESeq2")
+#   BiocManager::install("biomaRt")
+#   BiocManager::install("ensembldb")
+#   BiocManager::install("GenomicFeatures")
+#  BiocManager::install("apeglm")
+# 
+# 
+# # #Install pretty heatmap - pheatmap: https://cran.r-project.org/web/packages/pheatmap/index.html
+# install.packages("pheatmap")
+# # 
+# # #Install RColorBrewer: https://cran.r-project.org/web/packages/RColorBrewer/index.html
+# install.packages("RColorBrewer")
+# 
+# install.packages("tidyverse")
+# 
+# BiocManager::valid()    
+```
+
+Load required packages.
+
+```{r load packges, warning = FALSE, message = FALSE}
+
+# Do this every time.
+# Load packages:
+library(DESeq2)
+library(RColorBrewer)
+library(pheatmap)
+library(ggplot2)
+library(BiocManager)
+library(GenomicFeatures)
+library(ensembldb)
+library(biomaRt)
+library(dplyr)
+library(tibble)
+library(tidyverse)
+library(gridExtra)
+
+```
+
+Set date:
+
+```{r, echo = FALSE}
+today <- format(Sys.Date(), "%y%m%d")
+today
+```
+
+## Step 2: Import the datasets
+
+Import the counts dataset:
+
+```{r read in data}
+
+# If necessary:
+#setwd("~/Dropbox/LABWORK/PROJECTS/201114_CancerProgressionAnalysis/05_DESeq/02_scripts")
+
+# import the counts data - aligned to hg38
+countsData <- read.table(file = "../01_input/20200116_counts.txt", header = TRUE, row.names = 1, skip = 2) 
+
+# import the counts data - aligned to transgenes
+transgeneCountsData <- read.table(file = "../01_input/210210_transgene_counts.txt", header = TRUE, row.names = 1, skip = 1)
+
+```
+
+Import the metadata file:
+
+```{r}
+# Read in the metadata
+metadata <- read.table(file = "../01_input/RR_ARPE_Deluca_Collab_manifest.txt", header = FALSE) # import the data
+colnames(metadata) <- c("fasta1", "fasta2", "names", "rep","sample")
+metadata
+```
+
+## Step 3: Munge the data
+
+Determine samples to analyze using the metadatafile
+
+Append the metadata files to the countsData
+
+```{r, echo = FALSE}
+# The last names will be names for each sample. We can pull those names from metadata1:
+#as.vector(metadata$names)
+#as.vector(metadata$sample)
+
+# Name countsData columns headers:
+colnames(countsData) <- c("chr", "start", "stop", "strand", "length", as.vector(metadata$names))
+colnames(transgeneCountsData) <- c("chr", "start", "stop", "strand", "length", as.vector(metadata$names))
+countsData <- rbind(countsData, transgeneCountsData)
+
+```
+
+
+Prepare the counts table:
+
+```{r, echo = FALSE}
+
+# Save just the subset as an object called cts:
+cts <- as.matrix(countsData[,6:dim(countsData)[2]])
+
+# Next we need to make an information called coltable. We can make this out of the metadata table.
+# Reorganize the metadata table so the names1 column are now row headers
+rownames(metadata)<- metadata$names
+coldata <- metadata[,c("sample", "rep", "names")]
+coldata$sample <- factor(coldata$sample, levels = c("ARPE19", "T53D4", "Aktmyr", "MekDD", "RasV12", "negclt"))
+coldata$names <- as.factor(coldata$names)
+coldata$rep <- as.factor(coldata$rep)
+```
+
+
+One thing we need to do is explicitly check that the rownames of coldata exactly match the colnames of cts.
+
+Do they match?
+
+```{r}
+#Check that the names match  --> Should be TRUE
+all(rownames(coldata) == colnames(cts))
+```
+
+
+## Step 4: Perform DESeq2 analysis
+
+Run the DESeq2 analysis on the dataset
+
+```{r, echo = FALSE}
+
+#get rid of negative control stuff
+coldata= coldata[!1:17%in%c(6,14),]
+cts= cts[,!1:17%in%c(6,14)]
+
+# Set the factor levels 
+coldata$sample <- factor(coldata$sample, levels = c("ARPE19", "T53D4", "Aktmyr", "MekDD", "RasV12"))
+
+########## DESEQ2 Analysis ################
+dds <- DESeqDataSetFromMatrix(countData = cts,
+                              colData = coldata,
+                              design = ~ sample)
+
+```
+
+Filter for present genes
+
+Only keep genes that have 10 or greater reads associated with them.
+
+```{r}
+# Exclude genes with fewer than 10 reads
+keep <- rowSums(counts(dds)) >=10 
+dds <- dds[keep,]
+
+# How many genes did we have before?
+dim(cts)[1]
+
+# How many genes do we have now?
+dim(dds)[1]
+
+```
+
+
+Run the DESeq2 analysis
+
+```{r}
+
+# PERFORM DESEQ2 analysis:
+####### This is where the magic happens! ########### 
+# This will transform dds into a specialized object with many more fields filled in.
+dds<- DESeq(dds)
+
+# Organize the categories based on what makes sense:
+dds$names<- factor(dds$names)
+
+## Re-order the samples:
+dds$sample <- factor(dds$sample, levels=c("ARPE19", "T53D4",  "Aktmyr", "MekDD", "RasV12"))
+
+```
+
+Exploratory data analysis
+
+```{r}
+#class(dds)
+#str(dds)
+#head(dds)
+resultsNames(dds)
+dim(dds)
+plotDispEsts(dds)
+
+```
+
+What was the normalization scaling that was applied?
+
+```{r, echo = FALSE}
+# Size factor scaling
+dds$sizeFactor
+
+# Plot size factor scaling
+par(mfrow = c(1,1))
+barplot(as.vector(dds$sizeFactor), names.arg = as.vector(dds$names), ylim = c(0,3),
+     main = "Normalization factoring for each sample", las = 2)
+
+
+```
+
+
+## Step 5:  Append Ensemble identifiers to our dataset
+
+First, import the gene names, either from EnsemblDB or from an input file:
+
+```{r, echo = FALSE}
+####### USE ENSEMBLE TO LOOKUP THE GENENAMES: - ONLY DO THIS THE FIRST TIME #######
+
+# requires ensembldb
+  # ensembl = useDataset("hsapiens_gene_ensembl",mart=useMart("ENSEMBL_MART_ENSEMBL"))
+  # cts
+  # ## Filter,values,and attributes at http://www.ensembl.org/biomart/martview
+  # ctsnames = rownames(cts)
+  # gene_names = getBM(mart = ensembl, filter='ensembl_gene_id', value=ctsnames, 
+  #                   attributes=c('external_gene_name', 'ensembl_gene_id'))
+  # filename <- paste("../01_input/", today, "_ensembleLookuptable.txt", sep = "")
+  # write.table(gene_names, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+```
+
+```{r}
+# Second time on...import the gene_names from the input folder
+gene_names <-read.table(file = "../01_input/210116_ensembleLookuptable.txt", header = TRUE)
+```
+
+Write a script to append the gene names to the identifiers in a data.frame:
+
+```{r, echo = FALSE}
+
+# Functionify - identify the gene of interest
+lookup_ensembl <- function(gene) {
+  ensembl_name <- gene_names[which(gene_names$external_gene_name == gene),2]
+  return(ensembl_name)
+}
+
+# Functionify - add ensemble gene names
+add_external_name <- function(data_frame) {
+  merged_data_frame <- merge(rownames_to_column(as.data.frame(data_frame)), gene_names, by.x = "rowname", by.y = "ensembl_gene_id", all.x = TRUE)
+  merged_data_frame <- merged_data_frame %>% relocate(rowname, external_gene_name)
+  colnames(merged_data_frame)[1] <- "EnsembleGeneName"
+  return(merged_data_frame)
+}
+```
+
+
+## Step 6: Export data tables. 
+
+Some data tables to export and include in the study as supplemental data tables.
+
+```{r, echo = TRUE}
+
+###### RAW COUNTS ##########
+
+# create raw counts tables for supplemental figures
+raw_counts <- counts(dds, normalized = FALSE)
+merged_raw_counts <- add_external_name(raw_counts)
+
+###### NORMALIZED COUNTS ##########
+
+# create normalized counts tables for supplemental figures
+norm_counts <- counts(dds, normalized = TRUE)
+merged_norm_counts <- add_external_name(norm_counts)
+
+###### R-STABILIZED LOG COUNTS ##########
+rdl_all <- as.data.frame(assay(rlog(dds, blind=FALSE)))
+merged_rdl <- add_external_name(rdl_all)
+
+####### save raw counts file for supplemental datatable ######
+filename = paste("../03_output/", today, "_raw_counts.txt", sep = "")
+write.table(merged_raw_counts, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+####### save normalized raw counts file for supplemental datatable ######
+filename = paste("../03_output/", today, "_norm_counts.txt", sep = "")
+write.table(merged_norm_counts, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+####### save normalized raw counts file for supplemental datatable ######
+filename = paste("../03_output/", today, "_RStabilized_log_counts.txt", sep = "")
+write.table(merged_rdl, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+```
+
+## Step 7: Plot a distance matrix
+
+```{r Sample distance matrix (shows sample similarity), echo = FALSE}
+#Take r-stabilized log transformations of all the normalized count data. This will help with the problem that the data is noisy and it will help with the problem that the data is spread across a wide range of values.
+rld <- rlog(dds, blind=FALSE)  #Take the r-stabilized log transformed data:
+
+# Calculate the distances between each sample
+sampleDists <- dist(t(assay(rld))) # calculate distance matrices:
+sampleDistMatrix <- as.matrix(sampleDists) #convert from data.frame -> matrix
+rownames(sampleDistMatrix) <- colnames(rld) # Add some labels
+colnames(sampleDistMatrix) <- NULL
+colors <- colorRampPalette( rev(brewer.pal(9, "Blues")) )(255) #Pick some pretty colors
+
+# Draw the heatmap
+par(mfrow=c(1,1))
+dist_matrix <- pheatmap::pheatmap(sampleDistMatrix,
+                        clustering_distance_rows=sampleDists,
+                        clustering_distance_cols=sampleDists,
+                        col=colors, width = 4, height = 4,
+                        cluster_rows = TRUE) # Plot the heatmap
+
+figure_name_matrix <- paste("../03_output/", today, "_distanceMatrixPlot.pdf", sep = "")
+
+dist_matrix
+
+# save distance matrix figure
+pdf(figure_name_matrix, height = 6, width = 7)
+  par(mfrow=c(1,1))
+  dist_matrix
+  dev.off() 
+```
+
+## Step 8: Generate a PCA plot:
+
+```{r, echo = FALSE}
+
+# PCA plot
+PCA <- plotPCA(rld, intgroup=c("sample"))
+PCA <- PCA + theme(aspect.ratio=1)
+
+PCA
+
+# Save it to a .pdf
+figure_PCA <- paste("../03_output/", today, "_PCAPlot.pdf", sep = "")
+pdf(figure_PCA, height = 6, width = 5)
+  PCA 
+  dev.off() 
+
+```
+
+## Step 9: Plot some key, individual genes
+
+Write the function plot_ensembl and gather genes:
+
+  + "CCND1", "CDK4", "TERT", "TP53", "AKT1", "MAP2K1", "HRAS"
+
+```{r individual gene plots, echo = FALSE} 
+
+# Functionify - plotting
+plot_ensembl <- function(gene) {
+  plotcounts <- plotCounts(dds, gene=which(rownames(norm_counts)== gene),
+                          intgroup = c("sample"),
+                          cex.main=2, cex=1.5, xlab= "Sample", returnData = T)
+  common_name <- gene_names[which(gene_names$ensembl_gene_id == gene),1]
+  label = paste(common_name, "normalized expression", sep = " ")
+  
+  cbPalette <- c("#77A540", "#4B79BD", "#E8BB20", "#F47C20", "#A84B44", "#0072B2", "#D55E00", "#CC79A7")
+
+  p <- ggplot (plotcounts,aes(x=sample,y=count)) +
+    geom_boxplot(aes(fill=sample))+
+    geom_jitter(width = 0.25) +
+    scale_fill_manual(values=cbPalette) +
+    scale_y_log10() +
+    ggtitle(label) +
+    theme(text=element_text(family="Arial")) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    theme(axis.text.x = element_text(angle = 90))
+  return(p)
+}
+
+# Functionify - plotting
+plot_ensembl_with_ensembl_name <- function(gene) {
+  plotcounts <- plotCounts(dds, gene=which(rownames(norm_counts)== gene),
+                          intgroup = c("sample"),
+                          cex.main=2, cex=1.5, xlab= "Sample", returnData = T)
+  #common_name <- gene_names[which(gene_names$ensembl_gene_id == gene),1]
+  label = paste(gene, "normalized expression", sep = " ")
+  
+  cbPalette <- c("#77A540", "#4B79BD", "#E8BB20", "#F47C20", "#A84B44", "#0072B2", "#D55E00", "#CC79A7")
+
+  p <- ggplot (plotcounts,aes(x=sample,y=count)) +
+    geom_boxplot(aes(fill=sample))+
+    geom_jitter(width = 0.25) +
+    scale_fill_manual(values=cbPalette) +
+    scale_y_log10() +
+    ggtitle(label) +
+    theme(text=element_text(family="Arial")) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+    theme(axis.text.x = element_text(angle = 90))
+  return(p)
+}
+
+#Pull out the transgenes - hg38 aligned
+vector_of_genes <- sort(c("CCND1", "CDK4", "TERT", "TP53", "AKT1", "MAP2K1", "HRAS"))
+vector_of_ensembl <- sapply(vector_of_genes, lookup_ensembl, simplify = TRUE)
+
+# Pull out the transgenes - transgene aligned 
+vector_of_transgenes <- sort(rownames(transgeneCountsData))
+vector_of_transgenes
+# Make two lists of plots
+plist <- lapply(vector_of_ensembl, plot_ensembl)
+tlist <- lapply(rownames(transgeneCountsData), plot_ensembl_with_ensembl_name)
+
+# Save individual plots
+p1 <- plist[[1]]
+p2 <- plist[[2]]
+p3 <- plist[[3]]
+p4 <- plist[[4]]
+p5 <- plist[[5]]
+p6 <- plist[[6]]
+p7 <- plist[[7]]
+
+t1 <- tlist[[1]]
+t2 <- tlist[[2]]
+t3 <- tlist[[3]]
+t4 <- tlist[[4]]
+t5 <- tlist[[5]]
+t6 <- tlist[[6]]
+t7 <- tlist[[7]]
+vector_of_genes
+# Print plots in .html file
+grid.arrange(p1, t6, nrow = 1)
+grid.arrange(p2, t1, nrow = 1)
+grid.arrange(p3, t2, nrow = 1)
+grid.arrange(p4, t3, nrow = 1)
+grid.arrange(p5, t4, nrow = 1)
+grid.arrange(p6, t7, nrow = 1)
+grid.arrange(p7, p5, nrow = 1)
+
+# Print plots as .pdf files
+figure_plotcounts1 <- paste("../03_output/", today, "_PlotCounts1.pdf", sep = "")
+pdf(file = figure_plotcounts1, width = 8, height = 8 )
+  grid.arrange(p1, p2, p3, p4, p5, p6, p7, nrow = 3)
+  dev.off()
+
+figure_plotcounts2 <- paste("../03_output/", today, "_PlotCounts2.pdf", sep = "")
+pdf(file = figure_plotcounts2, width = 8, height = 8 )
+  grid.arrange(t1, t2, t3, t4, t5, t6, t7, nrow = 3)
+  dev.off()
+
+
+```
+
+## Step 10: Identify pairwise differentially expressed genes
+
+Write function calc_pairwise_results to calculate pairwise results tables
+
+Calculate all pairwise comparisons
+
+```{r differentially expressed genes}
+# Write key functions to calculate Threshold values
+
+
+calc_pairwise_results <- function(cond1, cond2, lfc){
+  res <- results(dds, contrast=c("sample", cond1, cond2), 
+                 alpha = 0.1, lfcThreshold = lfc, cooksCutoff = FALSE)
+  res <- res[order(res$padj, na.last = TRUE),]
+  return(res)
+}
+
+# Perform pairwise comparisons ARPE19
+# lfc = 0.2; default padj = 0.1
+res_ARPE19_vs_T53D4 <- calc_pairwise_results("T53D4","ARPE19", 0.25)
+res_ARPE19_vs_Aktmyr <- calc_pairwise_results("Aktmyr", "ARPE19", 0.25)
+res_ARPE19_vs_MekDD <- calc_pairwise_results("MekDD", "ARPE19", 0.25)
+res_ARPE19_vs_RasV12 <- calc_pairwise_results("RasV12", "ARPE19", 0.25)
+
+#Perform pairwise comparisons T53D4
+res_T53D4_vs_Aktmyr <- calc_pairwise_results("Aktmyr", "T53D4", 0.25)
+res_T53D4_vs_MekDD <- calc_pairwise_results("MekDD", "T53D4", 0.25)
+res_T53D4_vs_RasV12 <- calc_pairwise_results("RasV12", "T53D4", 0.25)
+
+#Perform pairwise comparisons Aktmyr
+res_Aktmyr_vs_MekDD <- calc_pairwise_results("MekDD", "Aktmyr", 0.25)
+res_Aktmyr_vs_RasV12 <- calc_pairwise_results("RasV12", "Aktmyr", 0.25)
+
+#Perform pairwise comparisons MekDD
+resMekDD_vs_RasV12 <- calc_pairwise_results("RasV12", "MekDD", 0.25)
+
+
+```
+
+Report the summaries of the res-plots:
+
+```{r, echo = TRUE}
+
+
+
+#remove transgenes
+remove_transgenes_from_results <- function(results_object){
+  new_results <- results_object[grep("transgene", rownames(results_object), invert = TRUE),]
+  return(new_results)
+}
+
+
+# Remove Transgenes
+res_ARPE19_vs_T53D4 <- remove_transgenes_from_results(res_ARPE19_vs_T53D4)
+res_ARPE19_vs_RasV12 <- remove_transgenes_from_results(res_ARPE19_vs_RasV12)
+res_ARPE19_vs_MekDD <- remove_transgenes_from_results(res_ARPE19_vs_MekDD)
+res_ARPE19_vs_Aktmyr <- remove_transgenes_from_results(res_ARPE19_vs_Aktmyr)
+
+# Report summaries
+summary(res_ARPE19_vs_T53D4)
+summary(res_ARPE19_vs_RasV12)
+summary(res_ARPE19_vs_MekDD)
+summary(res_ARPE19_vs_Aktmyr)
+```
+
+
+## Step 11: Plot the MA-Plots
+
+MA plots of pairwise comparisons
+
+```{r, echo = FALSE}
+
+# Plot MA-plots
+par(mfrow=c(2,2))
+plotMA(res_ARPE19_vs_T53D4, main="ARPE19 v. T53D4", ylim=c(-15,15))
+plotMA(res_ARPE19_vs_RasV12, main="ARPE19 v. RasV12", ylim=c(-15,15))
+plotMA(res_ARPE19_vs_MekDD, main="ARPE19 v. MekDD", ylim=c(-15,15))
+plotMA(res_ARPE19_vs_Aktmyr, main="ARPE19 v. Aktmyr", ylim=c(-15,15))
+
+#  Step4 -> click here to see what you got!
+#idx <- identify(res_ARPE19_vs_Aktmyr$baseMean, res_ARPE19_vs_Aktmyr$log2FoldChange)
+#rownames(res_ARPE19_vs_Aktmyr)[idx]
+
+```
+
+Save MA plots to .pdf's:
+
+```{r}
+# Printout MA-Plots
+filename = paste("../03_output/", today, "_MAplots.pdf", sep = "")
+pdf(file = filename, height = 6, width = 6)
+  par(mfrow=c(2,2))
+  plotMA(res_ARPE19_vs_T53D4, main="ARPE19 v. T53D4", ylim=c(-15,15))
+  plotMA(res_ARPE19_vs_RasV12, main="ARPE19 v. RasV12", ylim=c(-15,15))
+  plotMA(res_ARPE19_vs_MekDD, main="ARPE19 v. MekDD", ylim=c(-15,15))
+  plotMA(res_ARPE19_vs_Aktmyr, main="ARPE19 v. Aktmyr", ylim=c(-15,15))
+  dev.off()
+```
+
+## Step 12: Generate and export gene lists
+
+```{r}
+# find the up_in_X and down_in_X genesets:
+# lfc = 0.2; alpha = 0.1
+
+# Up in 
+Up_in_T53D4 <- subset(res_ARPE19_vs_T53D4, padj < 0.1 & log2FoldChange > 0.25)
+Up_in_Akt <- subset(res_ARPE19_vs_Aktmyr, padj < 0.1 & log2FoldChange > 0.25)
+Up_in_Mek <- subset(res_ARPE19_vs_MekDD, padj < 0.1 & log2FoldChange > 0.25)
+Up_in_Ras <- subset(res_ARPE19_vs_RasV12, padj < 0.1 & log2FoldChange > 0.25)
+
+# Down in 
+Down_in_T53D4 <- subset(res_ARPE19_vs_T53D4, padj < 0.1 & log2FoldChange < -0.25)
+Down_in_Akt <- subset(res_ARPE19_vs_Aktmyr, padj < 0.1 & log2FoldChange < -0.25)
+Down_in_Mek <- subset(res_ARPE19_vs_MekDD, padj < 0.1 & log2FoldChange < -0.25)
+Down_in_Ras <- subset(res_ARPE19_vs_RasV12, padj < 0.1 & log2FoldChange < -0.25)
+
+# Add external names
+merged_up_in_T53D4 <- add_external_name(Up_in_T53D4)
+merged_up_in_Akt <- add_external_name(Up_in_Akt)
+merged_up_in_Mek <- add_external_name(Up_in_Mek)
+merged_up_in_Ras <- add_external_name(Up_in_Ras)
+
+merged_down_in_T53D4 <- add_external_name(Down_in_T53D4)
+merged_down_in_Akt <- add_external_name(Down_in_Akt)
+merged_down_in_Mek <- add_external_name(Down_in_Mek)
+merged_down_in_Ras <- add_external_name(Down_in_Ras)
+
+# Write files:
+filename1 = paste("../03_output/", today, "_1_upInRas_ENSBL.txt", sep = "")
+write(file = filename1, merged_up_in_Ras$EnsembleGeneName, sep = "\n")
+
+filename2 = paste("../03_output/", today, "_2_upInMek_ENSBL.txt", sep = "")
+write(file = filename2, merged_up_in_Mek$EnsembleGeneName, sep = "\n")
+
+filename3 = paste("../03_output/", today, "_3_upInAkt_ENSBL.txt", sep = "")
+write(file = filename3, merged_up_in_Akt$EnsembleGeneName, sep = "\n")
+
+filename4 = paste("../03_output/", today, "_4_downInRas_ENSBL.txt", sep = "")
+write(file = filename4, merged_down_in_Ras$EnsembleGeneName, sep = "\n")
+
+filename5 = paste("../03_output/", today, "_5_downInMek_ENSBL.txt", sep = "")
+write(file = filename5, merged_down_in_Mek$EnsembleGeneName, sep = "\n")
+
+filename6 = paste("../03_output/", today, "_6_downInAkt_ENSBL.txt", sep = "")
+write(file = filename6, merged_down_in_Akt$EnsembleGeneName, sep = "\n")
+
+```
+
+## Step 13: Generate and export all-changing gene lists
+
+Determine the union set of genes that are changing in all pair-wise conditions with a maximum adjusted p-value of 0.1 and a minimum fold-change of 0.25.
+
+
+```{r, echo = FALSE}
+
+# Perform ALL stepwise comparisons:
+
+# These are the results I made:
+        # # Perform pairwise comparisons ARPE19
+        # # lfc = 0.2; default padj = 0.1
+        # res_ARPE19_vs_T53D4 <- calc_pairwise_results("T53D4","ARPE19", 0.25)
+        # res_ARPE19_vs_Aktmyr <- calc_pairwise_results("Aktmyr", "ARPE19", 0.25)
+        # res_ARPE19_vs_MekDD <- calc_pairwise_results("MekDD", "ARPE19", 0.25)
+        # res_ARPE19_vs_RasV12 <- calc_pairwise_results("RasV12", "ARPE19", 0.25)
+        # 
+        # #Perform pairwise comparisons T53D4
+        # res_T53D4_vs_Aktmyr <- calc_pairwise_results("Aktmyr", "T53D4", 0.25)
+        # res_T53D4_vs_MekDD <- calc_pairwise_results("MekDD", "T53D4", 0.25)
+        # res_T53D4_vs_RasV12 <- calc_pairwise_results("RasV12", "T53D4", 0.25)
+        # 
+        # #Perform pairwise comparisons Aktmyr
+        # res_Aktmyr_vs_MekDD <- calc_pairwise_results("MekDD", "Aktmyr", 0.25)
+        # res_Aktmyr_vs_RasV12 <- calc_pairwise_results("RasV12", "Aktmyr", 0.25)
+        # 
+        # #Perform pairwise comparisons MekDD
+        # resMekDD_vs_RasV12 <- calc_pairwise_results("RasV12", "MekDD", 0.25)
+
+# Changed in
+Changed_in_T53D4_v_ARPE19 <- subset(res_ARPE19_vs_T53D4, padj < 0.1 & abs(log2FoldChange) > 0.25)
+Changed_in_Akt_v_ARPE19 <- subset(res_ARPE19_vs_Aktmyr, padj < 0.1 & abs(log2FoldChange) > 0.25)
+Changed_in_Mek_v_ARPE19 <- subset(res_ARPE19_vs_MekDD, padj < 0.1 & abs(log2FoldChange) > 0.25)
+Changed_in_Ras_v_ARPE19 <- subset(res_ARPE19_vs_RasV12, padj < 0.1 & abs(log2FoldChange) > 0.25)
+
+Changed_in_Akt_v_T53D4 <- subset(res_T53D4_vs_Aktmyr, padj < 0.1 & abs(log2FoldChange) > 0.25)
+Changed_in_Mek_v_T53D4 <- subset(res_T53D4_vs_MekDD, padj < 0.1 & abs(log2FoldChange) > 0.25)
+Changed_in_Ras_v_T53D4 <- subset(res_T53D4_vs_RasV12, padj < 0.1 & abs(log2FoldChange) > 0.25)
+
+Changed_in_Mek_v_Akt <- subset(res_Aktmyr_vs_MekDD, padj < 0.1 & abs(log2FoldChange) > 0.25)
+Changed_in_Ras_v_Akt <- subset(res_Aktmyr_vs_RasV12, padj < 0.1 & abs(log2FoldChange) > 0.25)
+
+Changed_in_Ras_v_Mek <- subset(resMekDD_vs_RasV12, padj < 0.1 & abs(log2FoldChange) > 0.25)
+
+# Take the union set of all
+All_changing_ensemble <- unique( c(rownames(Changed_in_T53D4_v_ARPE19), 
+          rownames(Changed_in_Akt_v_ARPE19),
+          rownames(Changed_in_Mek_v_ARPE19),
+          rownames(Changed_in_Ras_v_ARPE19),
+          rownames(Changed_in_Akt_v_T53D4),
+          rownames(Changed_in_Mek_v_T53D4),
+          rownames(Changed_in_Ras_v_T53D4),
+          rownames(Changed_in_Mek_v_Akt),
+          rownames(Changed_in_Ras_v_Akt),
+          rownames(Changed_in_Ras_v_Mek)))
+
+All_changing_external <- add_external_name(All_changing_ensemble)
+
+Union_set_of_all_changing_genes_0.1_0.25 <- gene_names[which(gene_names$ensembl_gene_id %in% All_changing_ensemble),]
+
+Set_of_all_genes <- gene_names[which(gene_names$ensembl_gene_id %in% rownames(rld)),]
+
+```
+
+
+How many genes are in the union set of changing genes?
+
+
+```{r, echo = FALSE} 
+dim(Union_set_of_all_changing_genes_0.1_0.25)[1]
+```
+
+
+How many genes are in the complete dataset as a whole?
+
+
+```{r, echo = FALSE} 
+dim(Set_of_all_genes)[1]
+```
+
+Save the ensemble and external gene names of the full dataset and the changing set:
+
+```{r}
+
+filename = paste("../03_output/", today, "_unionSetOfChangingGenes_0.1_0.25.txt", sep = "")
+write.table(Union_set_of_all_changing_genes_0.1_0.25, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+filename = paste("../03_output/", today, "_unionAllGenes_.txt", sep = "")
+write.table(Set_of_all_genes, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+```
+
+
+## Step 14: Export the results tables and the DESeq object as files
+
+```{r, echo = FALSE}
+
+
+# Add gene names and sort in ascending order by adjusted p-value
+df_res_ARPE19_vs_T53D4 <- add_external_name(res_ARPE19_vs_T53D4) %>% arrange(padj)
+
+df_res_ARPE19_vs_Aktmyr <- add_external_name(res_ARPE19_vs_Aktmyr) %>% arrange(padj)
+df_res_ARPE19_vs_MekDD <- add_external_name(res_ARPE19_vs_MekDD) %>% arrange(padj)
+df_res_ARPE19_vs_RasV12 <- add_external_name(res_ARPE19_vs_RasV12) %>% arrange(padj)
+```
+
+```{r}
+# Write to .txt files
+filename = paste("../03_output/", today, "_results_ARPE19Table_vsT53D4.txt", sep = "")
+write.table(df_res_ARPE19_vs_T53D4, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+filename = paste("../03_output/", today, "_resultsTable_ARPE19_vs_Aktmyr.txt", sep = "")
+write.table(df_res_ARPE19_vs_Aktmyr, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+filename = paste("../03_output/", today, "_resultsTable_ARPE19_vs_MekDD.txt", sep = "")
+write.table(df_res_ARPE19_vs_MekDD, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+filename = paste("../03_output/", today, "_resultsTable_ARPE19_vs_RasV12.txt", sep = "")
+write.table(df_res_ARPE19_vs_RasV12, file = filename, sep = "\t", quote = FALSE, row.names = FALSE)
+
+filename_dds <- paste("../03_output/", today, "_dds_object.rds", sep = "")
+saveRDS(dds, file = filename_dds)
+
+```
+
+## Step 15: Export session info
+
+```{r, echo = TRUE}
+sessionInfo()
+
+citation()
+```
+
